@@ -401,7 +401,122 @@
         flex-wrap: wrap;
       }
     }
-  </style>
+  
+    .exam-global {
+      margin-top: 0.75rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .exam-btn {
+      font-size: 0.85rem;
+    }
+
+    .full-exam-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .full-exam-overlay.hidden {
+      display: none;
+    }
+
+    .full-exam-box {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      max-width: 800px;
+      width: 95%;
+      max-height: 90vh;
+      overflow: auto;
+      padding: 1.5rem;
+    }
+
+    .full-exam-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .full-exam-header h2 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .btn-close {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+    }
+
+    .btn-close:hover {
+      background: var(--bg-soft);
+    }
+
+    .exam-start-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    .exam-start-form label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      gap: 4px;
+      min-width: 220px;
+    }
+
+    .exam-start-form input {
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      font-size: 0.9rem;
+    }
+
+    .exam-question-area .question-card {
+      margin-bottom: 0.75rem;
+    }
+
+    .exam-nav {
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .exam-summary h3 {
+      margin-top: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.3rem;
+      font-size: 0.85rem;
+    }
+
+    .score-table th,
+    .score-table td {
+      border: 1px solid var(--border-soft);
+      padding: 4px 6px;
+      text-align: left;
+    }
+</style>
 </head>
 <body>
   <main class="app">
@@ -418,7 +533,10 @@
         <button class="mode-btn active" data-mode="single">Pregunta a pregunta</button>
         <button class="mode-btn" data-mode="full">Test completo</button>
       </div>
-    </header>
+    
+      <div class="exam-global">
+        <button id="global-exam-btn" class="mode-btn exam-btn">🧪 Examen completo</button>
+      </div></header>
 
     <section class="accordion">
       <!-- PRIMER SEMESTRE -->
@@ -842,14 +960,35 @@
     <footer>
       Hecho para repasar <span>RAEs de Medicina 1.º–5.º semestre</span>. Llena los bancos de preguntas en la carpeta <code>js</code>.
     </footer>
-  </main>
+  
+    <!-- Modal examen completo -->
+    <div id="full-exam-overlay" class="full-exam-overlay hidden">
+      <div class="full-exam-box">
+        <div class="full-exam-header">
+          <h2>Examen completo</h2>
+          <button type="button" class="btn-close" id="exam-close-btn">✕</button>
+        </div>
+        <div class="full-exam-body">
+          <form id="exam-start-form" class="exam-start-form">
+            <label>
+              Nombre o usuario
+              <input id="exam-username" type="text" placeholder="Escribe tu nombre" />
+            </label>
+            <button type="submit" class="mode-btn exam-btn">Iniciar examen</button>
+          </form>
+          <div id="exam-question-area" class="exam-question-area" style="display:none;"></div>
+          <div id="exam-summary" class="exam-summary" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+</main>
 
   <!-- BANCOS DE PREGUNTAS (tú los vas a crear en C:\Users\josem\Documents\RAE\js\) -->
-  <script src="js/preguntas_sem1.js"></script>
-  <script src="js/preguntas_sem2.js"></script>
-  <script src="js/preguntas_sem3.js"></script>
-  <script src="js/preguntas_sem4.js"></script>
-  <script src="js/preguntas_sem5.js"></script>
+  <script src="preguntas_sem1.js"></script>
+  <script src="preguntas_sem2.js"></script>
+  <script src="preguntas_sem3.js"></script>
+  <script src="preguntas_sem4.js"></script>
+  <script src="preguntas_sem5.js"></script>
 
   <script>
     let currentMode = "single"; // "single" o "full"
@@ -1159,5 +1298,231 @@ function renderTodosLosModulos() {
       aplicarModo("single");
     });
   </script>
+  <script>
+    (function () {
+      const openBtn = document.getElementById("global-exam-btn");
+      const overlay = document.getElementById("full-exam-overlay");
+      if (!openBtn || !overlay) return;
+
+      const startForm = document.getElementById("exam-start-form");
+      const usernameInput = document.getElementById("exam-username");
+      const qArea = document.getElementById("exam-question-area");
+      const summaryBox = document.getElementById("exam-summary");
+      const closeBtn = document.getElementById("exam-close-btn");
+      const SCORE_KEY = "raeExamScores";
+
+      let examState = null;
+
+      function getAllTestQuestions() {
+        const bancos = [
+          { sem: "1", data: window.PREGUNTAS_SEM1 },
+          { sem: "2", data: window.PREGUNTAS_SEM2 },
+          { sem: "3", data: window.PREGUNTAS_SEM3 },
+          { sem: "4", data: window.PREGUNTAS_SEM4 },
+          { sem: "5", data: window.PREGUNTAS_SEM5 },
+        ];
+        const all = [];
+        bancos.forEach((b) => {
+          if (!b.data) return;
+          Object.entries(b.data).forEach(([modulo, arr]) => {
+            if (!Array.isArray(arr)) return;
+            arr.forEach((preg) => {
+              // Solo preguntas tipo test (con opciones)
+              if (preg && preg.opciones) {
+                all.push({ sem: b.sem, modulo, preg });
+              }
+            });
+          });
+        });
+        return all;
+      }
+
+      function shuffle(array) {
+        const arr = array.slice();
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      function renderExamQuestion() {
+        if (!examState) return;
+        const total = examState.questions.length;
+        const idx = examState.index;
+
+        if (idx >= total) {
+          showExamSummary();
+          return;
+        }
+
+        const item = examState.questions[idx];
+        const preg = item.preg;
+
+        qArea.style.display = "block";
+        summaryBox.style.display = "none";
+
+        qArea.innerHTML = `
+          <p class="intro-text">Pregunta ${idx + 1} de ${total} · Semestre ${item.sem}</p>
+          <div class="question-card">
+            <div class="question-title">${preg.texto}</div>
+            <div class="options">
+              ${preg.opciones.a ? `<label><input type="radio" name="exam-answer" value="a" /> a) ${preg.opciones.a}</label>` : ""}
+              ${preg.opciones.b ? `<label><input type="radio" name="exam-answer" value="b" /> b) ${preg.opciones.b}</label>` : ""}
+              ${preg.opciones.c ? `<label><input type="radio" name="exam-answer" value="c" /> c) ${preg.opciones.c}</label>` : ""}
+              ${preg.opciones.d ? `<label><input type="radio" name="exam-answer" value="d" /> d) ${preg.opciones.d}</label>` : ""}
+            </div>
+          </div>
+          <div class="exam-nav">
+            <button type="button" id="exam-next-btn" class="mode-btn exam-btn">Responder y siguiente</button>
+          </div>
+        `;
+
+        const nextBtn = document.getElementById("exam-next-btn");
+        if (nextBtn) {
+          nextBtn.addEventListener("click", () => {
+            const checked = qArea.querySelector("input[name='exam-answer']:checked");
+            if (!checked) {
+              alert("Selecciona una opción antes de continuar.");
+              return;
+            }
+            examState.answers.push({
+              id: preg.id,
+              texto: preg.texto,
+              correcta: preg.correcta,
+              marcada: checked.value,
+              sem: item.sem,
+              modulo: item.modulo,
+            });
+            examState.index += 1;
+            renderExamQuestion();
+          });
+        }
+      }
+
+      function loadScores() {
+        try {
+          const raw = localStorage.getItem(SCORE_KEY);
+          if (!raw) return {};
+          return JSON.parse(raw);
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveScores(data) {
+        try {
+          localStorage.setItem(SCORE_KEY, JSON.stringify(data));
+        } catch (e) {
+          console.warn("No se pudieron guardar los puntajes", e);
+        }
+      }
+
+      function showExamSummary() {
+        const total = examState.answers.length;
+        const correctas = examState.answers.filter((a) => a.marcada === a.correcta).length;
+        const puntaje = total ? Math.round((correctas * 100) / total) : 0;
+
+        const data = loadScores();
+        if (!data[examState.user]) data[examState.user] = [];
+        data[examState.user].push({
+          fecha: new Date().toISOString(),
+          correctas,
+          total,
+          puntaje,
+        });
+        saveScores(data);
+
+        const historial = data[examState.user]
+          .slice(-5)
+          .reverse();
+
+        qArea.style.display = "none";
+        summaryBox.style.display = "block";
+
+        let tabla = "";
+        if (historial.length) {
+          tabla = `
+            <h3>Historial reciente de ${examState.user}</h3>
+            <table class="score-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Correctas</th>
+                  <th>Total</th>
+                  <th>Puntaje</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${historial
+                  .map((h) => {
+                    const fecha = new Date(h.fecha);
+                    const nice = fecha.toLocaleString();
+                    return `<tr><td>${nice}</td><td>${h.correctas}</td><td>${h.total}</td><td>${h.puntaje}%</td></tr>`;
+                  })
+                  .join("")}
+              </tbody>
+            </table>
+          `;
+        }
+
+        summaryBox.innerHTML = `
+          <h3>Resultado del examen</h3>
+          <p>Usuario: <strong>${examState.user}</strong></p>
+          <p>Preguntas correctas: <strong>${correctas}</strong> de ${total} (${puntaje}%).</p>
+          <p>Las respuestas correctas para cada pregunta las puedes revisar usando el modo "Test completo" por semestre.</p>
+          ${tabla}
+        `;
+      }
+
+      openBtn.addEventListener("click", () => {
+        const allQuestions = getAllTestQuestions();
+        if (!allQuestions.length) {
+          alert("Aún no hay preguntas tipo test cargadas.");
+          return;
+        }
+        overlay.classList.remove("hidden");
+        startForm.style.display = "flex";
+        summaryBox.style.display = "none";
+        qArea.style.display = "none";
+        usernameInput.value = "";
+        usernameInput.focus();
+        examState = null;
+      });
+
+      startForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const user = (usernameInput.value || "").trim();
+        if (!user) {
+          alert("Escribe un nombre o usuario.");
+          return;
+        }
+        const allQuestions = getAllTestQuestions();
+        if (!allQuestions.length) {
+          alert("Aún no hay preguntas tipo test cargadas.");
+          return;
+        }
+        examState = {
+          user,
+          questions: shuffle(allQuestions),
+          index: 0,
+          answers: [],
+        };
+        startForm.style.display = "none";
+        renderExamQuestion();
+      });
+
+      closeBtn.addEventListener("click", () => {
+        overlay.classList.add("hidden");
+      });
+
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+          overlay.classList.add("hidden");
+        }
+      });
+    })();
+  </script>
+
 </body>
 </html>
