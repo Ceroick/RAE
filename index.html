@@ -516,6 +516,55 @@
       padding: 4px 6px;
       text-align: left;
     }
+
+    .prev-btn {
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .prev-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(79, 70, 229, 0.3);
+      background: #4338ca;
+    }
+
+    .prev-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 5px 12px rgba(79, 70, 229, 0.25);
+    }
+
+    .reveal-btn {
+      margin-top: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px dashed var(--accent);
+      background: #eef2ff;
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .reveal-content {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #f9fafb;
+      border: 1px solid var(--border-soft);
+      font-size: 0.9rem;
+    }
+
 </style>
 </head>
 <body>
@@ -540,7 +589,7 @@
 
     <section class="accordion">
       <!-- PRIMER SEMESTRE -->
-      <details class="semester">
+      <details class="semester" open>
         <summary>
           <div class="summary-left">
             <span class="semester-title">Primer semestre</span>
@@ -587,7 +636,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -603,7 +655,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -644,7 +699,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -659,7 +717,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -674,7 +735,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -689,7 +753,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -731,7 +798,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -746,7 +816,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -761,7 +834,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -776,7 +852,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -791,7 +870,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -832,7 +914,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -847,7 +932,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -862,7 +950,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -877,7 +968,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -917,7 +1011,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -932,7 +1029,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -947,7 +1047,10 @@
                 <button class="check-btn" type="button">
                   <span class="btn-icon">📋</span> Revisar módulo completo
                 </button>
-                <button class="single-btn" type="button">
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
                   <span class="btn-icon">➡</span> Siguiente pregunta
                 </button>
               </div>
@@ -958,7 +1061,7 @@
     </section>
 
     <footer>
-      Hecho para repasar <span>RAEs de Medicina 1.º–5.º semestre</span>. 
+      Hecho para repasar <span>RAEs de Medicina 1.º–5.º semestre</span>. Llena los bancos de preguntas en la carpeta <code>js</code>.
     </footer>
   
     <!-- Modal examen completo -->
@@ -1043,20 +1146,37 @@
             <div class="feedback"></div>
           `;
         } else {
-          // Preguntas abiertas (como Repaso de Semiología)
+          // Preguntas abiertas
           qDiv.dataset.correct = "";
           qDiv.dataset.explanation = "";
           qDiv.dataset.open = "true";
 
-          qDiv.innerHTML = `
-            <div class="question-title">
-              ${index + 1}. ${preg.texto}
-            </div>
-            <div class="options">
-              <p><strong>Respuesta:</strong> ${preg.respuesta || ""}</p>
-              <p><strong>Explicación:</strong> ${preg.explicacion || ""}</p>
-            </div>
-          `;
+          if (sem === "5" && key === "semiologia_rep") {
+            // Módulo de repaso de semiología: parche "Toca para revelar"
+            qDiv.innerHTML = `
+              <div class="question-title">
+                ${index + 1}. ${preg.texto}
+              </div>
+              <div class="options">
+                <button type="button" class="reveal-btn">Toca para revelar</button>
+                <div class="reveal-content" style="display:none;">
+                  <p><strong>Respuesta:</strong> ${preg.respuesta || ""}</p>
+                  <p><strong>Explicación:</strong> ${preg.explicacion || ""}</p>
+                </div>
+              </div>
+            `;
+          } else {
+            // Resto de preguntas abiertas
+            qDiv.innerHTML = `
+              <div class="question-title">
+                ${index + 1}. ${preg.texto}
+              </div>
+              <div class="options">
+                <p><strong>Respuesta:</strong> ${preg.respuesta || ""}</p>
+                <p><strong>Explicación:</strong> ${preg.explicacion || ""}</p>
+              </div>
+            `;
+          }
         }
 
         list.appendChild(qDiv);
@@ -1087,40 +1207,44 @@ function renderTodosLosModulos() {
       document.querySelectorAll(".quiz-scope").forEach((scope) => {
         const questions = scope.querySelectorAll(".question");
         const checkBtn = scope.querySelector(".check-btn");
-        const singleBtn = scope.querySelector(".single-btn");
+        const nextBtn = scope.querySelector(".next-btn");
+        const prevBtn = scope.querySelector(".prev-btn");
         const feedbackEls = scope.querySelectorAll(".feedback");
 
-        if (!questions.length || !checkBtn || !singleBtn) return;
+        if (!questions.length || !checkBtn || !nextBtn) return;
+
+        // Reset común
+        questions.forEach((q) => {
+          q.classList.remove("correct", "incorrect");
+          q.dataset.answered = "false";
+          q.querySelectorAll("input[type='radio']").forEach((r) => {
+            r.checked = false;
+            r.disabled = false;
+          });
+        });
+        feedbackEls.forEach((fb) => {
+          fb.style.display = "none";
+          fb.textContent = "";
+          fb.classList.remove("correct", "incorrect");
+        });
 
         if (mode === "single") {
           checkBtn.style.display = "none";
-          singleBtn.style.display = "inline-flex";
+          nextBtn.style.display = "inline-flex";
+          if (prevBtn) prevBtn.style.display = "inline-flex";
           scope.dataset.index = "0";
-          singleBtn.dataset.done = "false";
+          nextBtn.dataset.done = "false";
 
           questions.forEach((q, i) => {
             q.style.display = i === 0 ? "block" : "none";
-            q.classList.remove("correct", "incorrect");
-            q.querySelectorAll("input[type='radio']").forEach((r) => (r.checked = false));
-          });
-          feedbackEls.forEach((fb) => {
-            fb.style.display = "none";
-            fb.textContent = "";
-            fb.classList.remove("correct", "incorrect");
           });
         } else {
           checkBtn.style.display = "inline-flex";
-          singleBtn.style.display = "none";
+          nextBtn.style.display = "none";
+          if (prevBtn) prevBtn.style.display = "none";
 
           questions.forEach((q) => {
             q.style.display = "block";
-            q.classList.remove("correct", "incorrect");
-            q.querySelectorAll("input[type='radio']").forEach((r) => (r.checked = false));
-          });
-          feedbackEls.forEach((fb) => {
-            fb.style.display = "none";
-            fb.textContent = "";
-            fb.classList.remove("correct", "incorrect");
           });
         }
       });
@@ -1132,24 +1256,52 @@ function renderTodosLosModulos() {
           if (currentMode !== "single") return;
 
           const q = radio.closest(".question");
+          if (!q || q.dataset.open === "true") return;
+
           const correct = q.getAttribute("data-correct");
           const explanation = q.getAttribute("data-explanation") || "";
           const feedbackEl = q.querySelector(".feedback");
 
           q.classList.remove("correct", "incorrect");
-          feedbackEl.classList.remove("correct", "incorrect");
+          if (feedbackEl) {
+            feedbackEl.classList.remove("correct", "incorrect");
+          }
 
           if (radio.value === correct) {
             q.classList.add("correct");
-            feedbackEl.style.display = "block";
-            feedbackEl.classList.add("correct");
-            feedbackEl.textContent = "✅ Correcto. " + explanation;
+            if (feedbackEl) {
+              feedbackEl.style.display = "block";
+              feedbackEl.classList.add("correct");
+              feedbackEl.textContent = "✅ Correcto. " + explanation;
+            }
           } else {
             q.classList.add("incorrect");
-            feedbackEl.style.display = "block";
-            feedbackEl.classList.add("incorrect");
-            feedbackEl.textContent = "❌ Incorrecto. Recuerda: " + explanation;
+            if (feedbackEl) {
+              feedbackEl.style.display = "block";
+              feedbackEl.classList.add("incorrect");
+              feedbackEl.textContent = "❌ Incorrecto. Recuerda: " + explanation;
+            }
           }
+
+          // Opción C: bloquear cambios después de responder
+          q.dataset.answered = "true";
+          q.querySelectorAll("input[type='radio']").forEach((r) => {
+            r.disabled = true;
+          });
+        });
+      });
+    }
+
+    function attachRevealListeners() {
+      document.querySelectorAll(".reveal-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const options = btn.closest(".options");
+          if (!options) return;
+          const content = options.querySelector(".reveal-content");
+          if (!content) return;
+          const isHidden = content.style.display === "none" || content.style.display === "";
+          content.style.display = isHidden ? "block" : "none";
+          btn.textContent = isHidden ? "Ocultar" : "Toca para revelar";
         });
       });
     }
@@ -1189,9 +1341,10 @@ function renderTodosLosModulos() {
 
       // Listeners de radios (después de renderizar)
       attachRadioListeners();
+      attachRevealListeners();
 
       // Botones "Siguiente pregunta"
-      document.querySelectorAll(".single-btn").forEach((btn) => {
+      document.querySelectorAll(".next-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           if (currentMode !== "single") return;
 
@@ -1201,12 +1354,17 @@ function renderTodosLosModulos() {
 
           let index = parseInt(scope.dataset.index || "0", 10);
 
+          // Si ya terminó el módulo, el botón actúa como "Reiniciar"
           if (btn.dataset.done === "true") {
             scope.dataset.index = "0";
             questions.forEach((q, i) => {
               q.style.display = i === 0 ? "block" : "none";
               q.classList.remove("correct", "incorrect");
-              q.querySelectorAll("input[type='radio']").forEach((r) => (r.checked = false));
+              q.dataset.answered = "false";
+              q.querySelectorAll("input[type='radio']").forEach((r) => {
+                r.checked = false;
+                r.disabled = false;
+              });
               const fb = q.querySelector(".feedback");
               if (fb) {
                 fb.style.display = "none";
@@ -1228,6 +1386,25 @@ function renderTodosLosModulos() {
             btn.dataset.done = "true";
             btn.textContent = "Reiniciar";
           }
+        });
+      });
+
+      // Botones "Pregunta anterior"
+      document.querySelectorAll(".prev-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (currentMode !== "single") return;
+
+          const scope = btn.closest(".quiz-scope");
+          const questions = scope.querySelectorAll(".question");
+          if (!questions.length) return;
+
+          let index = parseInt(scope.dataset.index || "0", 10);
+          if (index <= 0) return;
+
+          questions[index].style.display = "none";
+          index--;
+          questions[index].style.display = "block";
+          scope.dataset.index = String(index);
         });
       });
 
