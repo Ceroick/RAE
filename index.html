@@ -1440,6 +1440,19 @@ function renderTodosLosModulos() {
         });
       });
     }
+document.addEventListener("keydown", (ev) => {
+  // ENTER o Flecha Derecha → Siguiente pregunta
+  if (ev.key === "Enter" || ev.key === "ArrowRight") {
+    const btn = document.querySelector(".next-btn");
+    if (btn && !btn.disabled) btn.click();
+  }
+
+  // Flecha Izquierda → Pregunta anterior
+  if (ev.key === "ArrowLeft") {
+    const btn = document.querySelector(".prev-btn");
+    if (btn && !btn.disabled) btn.click();
+  }
+});
 
     document.addEventListener("DOMContentLoaded", () => {
       prepararLogin();
