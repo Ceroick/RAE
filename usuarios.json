@@ -1,5 +1,11 @@
 [
   { "usuario": "Jose", "password": "54321" },
-  { "usuario": "invitado", "password": "medicina" },
+  { "usuario": "Natha", "password": "54321" },
+  { "usuario": "Viv", "password": "54321" },
+  { "usuario": "Juanjo", "password": "54321" },
+  { "usuario": "Juanes", "password": "54321" },
+  { "usuario": "Wanda", "password": "54321" },
+  { "usuario": "Nico", "password": "54321" },
+  { "usuario": "invitado", "password": "54321" },
   { "usuario": "nathalia", "password": "semiologia2025" }
 ]
