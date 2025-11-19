@@ -564,11 +564,48 @@
       border: 1px solid var(--border-soft);
       font-size: 0.9rem;
     }
-
 </style>
 </head>
 <body>
   <main class="app">
+    <div id="login-overlay" style="
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    ">
+      <div style="
+        background: #ffffff;
+        padding: 20px 18px;
+        border-radius: 14px;
+        max-width: 320px;
+        width: 90%;
+        box-shadow: 0 10px 25px rgba(15,23,42,0.3);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      ">
+        <h2 style="margin-top:0; font-size:1.1rem; text-align:center;">Iniciar sesión</h2>
+        <p id="login-error" style="color:#dc2626; font-size:0.85rem; display:none; text-align:center; margin-bottom:8px;">
+          Usuario o contraseña incorrectos.
+        </p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <input id="login-usuario" type="text" placeholder="Usuario" style="padding:8px; border-radius:999px; border:1px solid #dde;">
+          <input id="login-password" type="password" placeholder="Contraseña" style="padding:8px; border-radius:999px; border:1px solid #dde;">
+          <button id="login-btn" type="button" style="
+            padding:8px;
+            border-radius:999px;
+            background:#4f46e5;
+            border:none;
+            color:white;
+            font-weight:600;
+            cursor:pointer;
+          ">Entrar</button>
+        </div>
+      </div>
+    </div>
+
     <header>
       <h1>Simulador RAEs - Medicina</h1>
       <p>Selecciona el semestre, luego el módulo, y elige si quieres practicar pregunta a pregunta o todo el test.</p>
@@ -1099,6 +1136,59 @@
   <script>
     let currentMode = "single"; // "single" o "full"
 
+    let currentUser = null;
+
+    async function intentarLogin(usuario, password) {
+      try {
+        const resp = await fetch("usuarios.json");
+        const lista = await resp.json();
+        const ok = lista.find(
+          (u) => u.usuario === usuario && u.password === password
+        );
+        return ok || null;
+      } catch (e) {
+        console.error("Error cargando usuarios.json", e);
+        return null;
+      }
+    }
+
+    function prepararLogin() {
+      const overlay = document.getElementById("login-overlay");
+      const userInput = document.getElementById("login-usuario");
+      const passInput = document.getElementById("login-password");
+      const btn = document.getElementById("login-btn");
+      const errorEl = document.getElementById("login-error");
+
+      if (!overlay || !userInput || !passInput || !btn) return;
+
+      async function hacerLogin() {
+        const u = (userInput.value || "").trim();
+        const p = (passInput.value || "").trim();
+
+        if (!u || !p) {
+          errorEl.style.display = "block";
+          errorEl.textContent = "Escribe usuario y contraseña.";
+          return;
+        }
+
+        const ok = await intentarLogin(u, p);
+        if (!ok) {
+          errorEl.style.display = "block";
+          errorEl.textContent = "Usuario o contraseña incorrectos.";
+          return;
+        }
+
+        currentUser = ok.usuario;
+        overlay.style.display = "none";
+        errorEl.style.display = "none";
+      }
+
+      btn.addEventListener("click", hacerLogin);
+      passInput.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") hacerLogin();
+      });
+    }
+
     function getBanco(sem) {
       if (sem === "1") return window.PREGUNTAS_SEM1 || null;
       if (sem === "2") return window.PREGUNTAS_SEM2 || null;
@@ -1310,6 +1400,7 @@ function renderTodosLosModulos() {
     }
 
     document.addEventListener("DOMContentLoaded", () => {
+      prepararLogin();
       // Toggle de modo
       document.querySelectorAll(".mode-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
