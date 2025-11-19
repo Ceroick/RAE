@@ -1488,6 +1488,7 @@ function renderTodosLosModulos() {
           const questions = scope.querySelectorAll(".question");
           if (!questions.length) return;
 
+          const checkBtn = scope.querySelector(".check-btn");
           let index = parseInt(scope.dataset.index || "0", 10);
 
           // Si ya terminó el módulo, el botón actúa como "Reiniciar"
@@ -1508,6 +1509,12 @@ function renderTodosLosModulos() {
                 fb.classList.remove("correct", "incorrect");
               }
             });
+            // Al reiniciar, ocultamos el botón de revisar (se usa solo al final)
+            if (checkBtn) {
+              if (currentMode === "single") {
+                checkBtn.style.display = "none";
+              }
+            }
             btn.dataset.done = "false";
             btn.textContent = "Siguiente pregunta";
             return;
@@ -1519,8 +1526,13 @@ function renderTodosLosModulos() {
             questions[index].style.display = "block";
             scope.dataset.index = String(index);
           } else {
+            // Última pregunta: marcar como terminado y mostrar "Reiniciar"
             btn.dataset.done = "true";
             btn.textContent = "Reiniciar";
+            // Aquí mostramos el botón de revisar para este módulo
+            if (checkBtn) {
+              checkBtn.style.display = "inline-flex";
+            }
           }
         });
       });
@@ -1547,8 +1559,6 @@ function renderTodosLosModulos() {
       // Botones "Revisar módulo completo"
       document.querySelectorAll(".check-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          if (currentMode !== "full") return;
-
           const scope = btn.closest(".quiz-scope");
           const moduleEl = btn.closest(".module");
           const questions = scope.querySelectorAll(".question");
