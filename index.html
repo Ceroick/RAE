@@ -1509,6 +1509,11 @@ function renderTodosLosModulos() {
                 fb.classList.remove("correct", "incorrect");
               }
             });
+            // Al reiniciar, eliminar el resumen del módulo (si existe)
+            const summary = scope.querySelector(".module-summary");
+            if (summary) {
+              summary.remove();
+            }
             // Al reiniciar, ocultamos el botón de revisar (se usa solo al final)
             if (checkBtn) {
               if (currentMode === "single") {
