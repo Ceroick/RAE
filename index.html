@@ -564,6 +564,48 @@
       border: 1px solid var(--border-soft);
       font-size: 0.9rem;
     }
+
+    .module-summary {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #eef2ff;
+      border: 1px solid var(--accent-soft);
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .module-summary h4 {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+    }
+
+    .module-summary p {
+      margin: 2px 0;
+    }
+
+    .module-summary ul {
+      margin: 6px 0 0;
+      padding-left: 18px;
+    }
+
+    .module-summary li {
+      margin-bottom: 4px;
+    }
+
+    .module-summary .bad-question {
+      margin-bottom: 6px;
+    }
+
+    .module-summary .bad-question-title {
+      font-weight: 600;
+    }
+
+    .module-summary .bad-question-detail {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
 </style>
 </head>
 <body>
@@ -1508,8 +1550,17 @@ function renderTodosLosModulos() {
           if (currentMode !== "full") return;
 
           const scope = btn.closest(".quiz-scope");
+          const moduleEl = btn.closest(".module");
           const questions = scope.querySelectorAll(".question");
           if (!questions.length) return;
+
+          const sem = moduleEl ? moduleEl.dataset.sem : null;
+          const key = moduleEl ? moduleEl.dataset.module : null;
+          const skipSummary = sem === "5" && key === "semiologia_rep";
+
+          let totalEvaluable = 0;
+          let correctas = 0;
+          const incorrectDetails = [];
 
           questions.forEach((q) => {
             const isOpen = q.dataset.open === "true";
@@ -1532,13 +1583,33 @@ function renderTodosLosModulos() {
               return;
             }
 
+            // A partir de aquí solo preguntas tipo test
+            totalEvaluable++;
+
+            const titleEl = q.querySelector(".question-title");
+            const texto = titleEl ? titleEl.textContent.trim() : "";
+
             if (!selected) {
+              q.classList.add("incorrect");
               if (feedbackEl) {
                 feedbackEl.style.display = "block";
                 feedbackEl.classList.add("incorrect");
                 feedbackEl.textContent = "Selecciona una opción para esta pregunta.";
               }
-              q.classList.add("incorrect");
+
+              // Registrar como incorrecta sin respuesta
+              incorrectDetails.push({
+                texto,
+                correcta: correct,
+                correctaTexto: (() => {
+                  const opt = q.querySelector('.options input[value="' + correct + '"]');
+                  return opt && opt.parentElement ? opt.parentElement.textContent.trim() : "";
+                })(),
+                marcada: null,
+                marcadaTexto: null,
+                motivo: "Sin respuesta"
+              });
+
               return;
             }
 
@@ -1549,6 +1620,7 @@ function renderTodosLosModulos() {
                 feedbackEl.classList.add("correct");
                 feedbackEl.textContent = "✅ Correcto. " + explanation;
               }
+              correctas++;
             } else {
               q.classList.add("incorrect");
               if (feedbackEl) {
@@ -1560,8 +1632,79 @@ function renderTodosLosModulos() {
                   ". " +
                   explanation;
               }
+
+              // Registrar como incorrecta
+              const optCorrect = q.querySelector('.options input[value="' + correct + '"]');
+              const correctText = optCorrect && optCorrect.parentElement
+                ? optCorrect.parentElement.textContent.trim()
+                : "";
+
+              const chosenLabel = selected.parentElement;
+              const chosenText = chosenLabel ? chosenLabel.textContent.trim() : "";
+
+              incorrectDetails.push({
+                texto,
+                correcta: correct,
+                correctaTexto: correctText,
+                marcada: selected.value,
+                marcadaTexto: chosenText,
+                motivo: "Respuesta incorrecta"
+              });
             }
           });
+
+          // No mostrar resumen para el módulo de repaso de semiología
+          if (skipSummary) {
+            return;
+          }
+
+          // Construir resumen del módulo
+          let summary = scope.querySelector(".module-summary");
+          if (!summary) {
+            summary = document.createElement("div");
+            summary.className = "module-summary";
+            scope.appendChild(summary);
+          }
+
+          if (!totalEvaluable) {
+            summary.innerHTML = "<p>Este módulo no tiene preguntas tipo test para calificar.</p>";
+            return;
+          }
+
+          const porcentaje = Math.round((correctas * 100) / totalEvaluable);
+          const notaRaw = (correctas * 5) / totalEvaluable;
+          const nota = Math.round(notaRaw * 10) / 10; // un decimal
+
+          let html = "";
+          html += "<h4>Resumen del módulo</h4>";
+          html += "<p>Respondiste correctamente <strong>" + correctas + "</strong> de " + totalEvaluable + " preguntas (" + porcentaje + "%).</p>";
+          html += "<p>Nota simulada: <strong>" + nota.toFixed(1) + "/5.0</strong></p>";
+
+          if (!incorrectDetails.length) {
+            html += "<p>✅ No tuviste errores en este módulo.</p>";
+          } else {
+            html += "<p>Preguntas que respondiste incorrectamente o sin responder:</p>";
+            html += "<ul>";
+            incorrectDetails.forEach((item) => {
+              html += "<li class=\"bad-question\">";
+              html += "<div class=\"bad-question-title\">" + item.texto + "</div>";
+              html += "<div class=\"bad-question-detail\">";
+              if (item.motivo === "Sin respuesta") {
+                html += "Sin respuesta. ";
+              } else {
+                html += "Marcaste: <em>" + (item.marcadaTexto || item.marcada) + "</em>. ";
+              }
+              html += "Correcta: <strong>" + item.correcta.toUpperCase() + "</strong>";
+              if (item.correctaTexto) {
+                html += " (" + item.correctaTexto + ")";
+              }
+              html += ".</div>";
+              html += "</li>";
+            });
+            html += "</ul>";
+          }
+
+          summary.innerHTML = html;
         });
       });
 
