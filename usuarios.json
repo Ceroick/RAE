@@ -8,5 +8,6 @@
   { "usuario": "Nico", "password": "54321" },
   { "usuario": "invitado", "password": "54321" },
   { "usuario": "GrinGay", "password": "Greenday" },
+  { "usuario": "", "password": "" },
   { "usuario": "Andres", "password": "1243532" }
 ]
