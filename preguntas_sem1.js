@@ -360,7 +360,7 @@ window.PREGUNTAS_SEM1 = {
   id: "bf17",
   texto: "¿Cuál es la principal fuente de glucosa para el cerebro en ayuno prolongado?",
   opciones: { a:"Glucógeno hepático", b:"Gluconeogénesis", c:"Glucólisis muscular", d:"Cuerpos cetónicos" },
-  correcta: "a",
+  correcta: "b",
   explicacion: "La principal fuente de glucosa para el cerebro durante un ayuno prolongado es la gluconeogénesis hepática, sin embargo, durante un ayuno prolongado, el cerebro también utiliza cuerpos cetónicos como fuente de energía alternativa."
 },
 {
@@ -953,3 +953,4 @@ window.PREGUNTAS_SEM1 = {
   ]
 
 };
+
