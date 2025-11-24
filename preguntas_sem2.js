@@ -257,6 +257,7 @@ window.PREGUNTAS_SEM2 = {
     {
       id: "aph4",
       texto: "Un paciente tiene el siguiente ritmo en la derivación II del ECG, no responde:",
+      imagen: "1.png",
       opciones: {
         a: "Colocar tubo endotraqueal",
         b: "Verificar pulso",
@@ -962,3 +963,4 @@ window.PREGUNTAS_SEM2 = {
     }
   ]
 };
+
