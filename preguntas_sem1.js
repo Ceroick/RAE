@@ -1087,7 +1087,7 @@ window.PREGUNTAS_SEM1 = {
         c: "C= 17%, A= 33%, G=33%",
         d: "C= 33%, A= 17%, G=33%"
       },
-      correcta: "b",
+      correcta: "d",
       explicacion: "A=T, el resto son G y C."
     },
     {
@@ -1128,5 +1128,6 @@ window.PREGUNTAS_SEM1 = {
     }
   ]
 };
+
 
 
