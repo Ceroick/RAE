@@ -254,25 +254,25 @@ window.PREGUNTAS_SEM1 = {
   explicacion: "El glucógeno posee enlaces α(1→4) lineales."
 },
 {
-  id: "bf3",
-  texto: "Durante la glucólisis anaeróbica en el músculo, ¿cuál es el producto final?",
-  opciones: { a:"Acetil-CoA", b:"CO₂ y agua", c:"Glucógeno", d:"Lactato" },
-  correcta: "d",
-  explicacion: "La vía anaeróbica produce lactato."
+    id: "bf3",
+    texto: "Durante la glucólisis anaeróbica en el músculo, ¿cuál es el producto final de la degradación de la glucosa?",
+    opciones: { a: "Acetil-CoA", b: "CO₂ y agua", c: "Glucógeno", d: "Lactato" },
+    correcta: "d",
+    explicacion: "La vía anaeróbica produce lactato."
 },
 {
-  id: "bf4",
-  texto: "¿Cuál enzima rompe enlaces α(1→4) del almidón durante la digestión?",
-  opciones: { a:"Amilasa pancreática", b:"Celulasa", c:"Lactasa", d:"Sacarasa" },
-  correcta: "a",
-  explicacion: "La amilasa pancreática hidroliza almidón."
+    id: "bf4",
+    texto: "¿Cuál de las siguientes enzimas participa en la ruptura de los enlaces α(1→4) del almidón durante la digestión?",
+    opciones: { a: "Amilasa pancreática", b: "Celulasa", c: "Lactasa", d: "Sacarasa" },
+    correcta: "a",
+    explicacion: "La amilasa pancreática hidroliza almidón."
 },
 {
-  id: "bf5",
-  texto: "¿Qué hormona aumenta principalmente la glucosa en sangre?",
-  opciones: { a:"Glucagón", b:"Cortisol", c:"Insulina", d:"Adrenalina" },
-  correcta: "a",
-  explicacion: "El glucagón eleva la glucemia."
+    id: "bf5",
+    texto: "¿Qué hormona principal promueve el aumento de glucosa en la sangre?",
+    opciones: { a: "Glucagón", b: "Cortisol", c: "Insulina", d: "Adrenalina" },
+    correcta: "a",
+    explicacion: "El glucagón eleva la glucemia."
 },
 {
   id: "bf6",
@@ -294,11 +294,11 @@ window.PREGUNTAS_SEM1 = {
   explicacion: "Son la reserva energética principal."
 },
 {
-  id: "bf8",
-  texto: "¿Qué lipoproteína transporta triglicéridos desde el intestino a tejidos?",
-  opciones: { a:"HDL", b:"LDL", c:"Quilomicrones", d:"VLDL" },
-  correcta: "c",
-  explicacion: "Los quilomicrones llevan lípidos dietarios."
+    id: "bf8",
+    texto: "¿Qué lipoproteína transporta principalmente los triacilglicéridos desde el intestino hacia los tejidos periféricos?",
+    opciones: { a: "HDL", b: "LDL", c: "Quilomicrones", d: "VLDL" },
+    correcta: "c",
+    explicacion: "Los quilomicrones llevan lípidos dietarios."
 },
 {
   id: "bf9",
@@ -434,28 +434,28 @@ window.PREGUNTAS_SEM1 = {
   explicacion: "El glucagón estimula catabolismo."
 },
 {
-  id: "bf28",
-  texto: "¿Por qué el ácido carbónico es un ácido volátil?",
-  opciones: {
-    a:"Se disocia completamente",
-    b:"Depende del riñón",
-    c:"Tiene pKa alto",
-    d:"Proviene del CO₂ eliminado por pulmones"
-  },
-  correcta: "d",
-  explicacion: "Deriva de CO₂, eliminado por pulmones."
+   id: "bf28",
+    texto: "Uno de los ácidos más importantes generados en el metabolismo de carbohidratos y lípidos es el ácido carbónico, ¿por qué se considera un ácido volátil?",
+    opciones: {
+      a: "Se disocia completamente",
+      b: "Depende del riñón",
+      c: "Tiene pKa alto",
+      d: "Proviene del CO₂ eliminado por pulmones"
+    },
+    correcta: "d",
+    explicacion: "Deriva de CO₂, eliminado por pulmones."
 },
 {
-  id: "bf29",
-  texto: "¿Qué buffer compensa los H+ generados por el metabolismo?",
-  opciones: {
-    a:"Ácido carbónico/bicarbonato",
-    b:"Ácido fosfórico/bicarbonato",
-    c:"CO₂/ácido carbónico",
-    d:"CO₂/O₂"
-  },
-  correcta: "a",
-  explicacion: "El principal buffer sanguíneo es H₂CO₃/HCO₃⁻."
+    id: "bf29",
+    texto: "En el metabolismo se generan grandes cantidades de hidrógeno que pueden desequilibrar el pH sanguíneo, lo cual el metabolismo compensa mediante el buffer:",
+    opciones: {
+      a: "Ácido carbónico/bicarbonato",
+      b: "Ácido fosfórico/bicarbonato",
+      c: "CO₂/ácido carbónico",
+      d: "CO₂/O₂"
+    },
+    correcta: "a",
+    explicacion: "El principal buffer sanguíneo es H₂CO₃/HCO₃⁻."
 },
 {
   id: "bf30",
@@ -470,16 +470,16 @@ window.PREGUNTAS_SEM1 = {
   explicacion: "La cetogénesis causa acidosis metabólica."
 },
 {
-  id: "bf31",
-  texto: "Funciones de carbohidratos en organismos vivos:",
-  opciones: {
-    a:"Energía, aislamiento térmico y estructura",
-    b:"Energía, estructura y precursores",
-    c:"Energía y estructura",
-    d:"Estructura, precursores y aislamiento"
-  },
-  correcta: "b",
-  explicacion: "Dan energía, estructura y biomoléculas."
+    id: "bf31",
+    texto: "Los carbohidratos cumplen diversas funciones en los organismos vivos. ¿cuáles son?",
+    opciones: {
+      a: "Energía, aislamiento térmico y estructura",
+      b: "Energía, estructura y precursores",
+      c: "Energía y estructura",
+      d: "Estructura, precursores y aislamiento"
+    },
+    correcta: "b",
+    explicacion: "Dan energía, estructura y biomoléculas."
 },
 {
   id: "bf32",
@@ -489,66 +489,66 @@ window.PREGUNTAS_SEM1 = {
   explicacion: "El organismo sintetiza su glucógeno."
 },
 {
-  id: "bf33",
-  texto: "¿Por qué la fructosa no eleva inmediatamente la glucosa?",
-  opciones: {
-    a:"Ingresa rápido sin insulina",
-    b:"Es indigerible",
-    c:"Es muy baja en alimentos",
-    d:"B y C son correctas"
-  },
-  correcta: "a",
-  explicacion: "Se metaboliza principalmente en hígado."
+    id: "bf33",
+    texto: "¿Por qué la fructosa no genera un impacto inmediato en la concentración de azúcar en sangre?",
+    opciones: {
+      a: "Ingresa rápido sin insulina",
+      b: "Es indigerible",
+      c: "Es muy baja en alimentos",
+      d: "B y C son correctas"
+    },
+    correcta: "a",
+    explicacion: "Se metaboliza principalmente en hígado."
 },
 {
-  id: "bf34",
-  texto: "Definición correcta para lípidos:",
-  opciones: {
-    a:"Inorgánica e hidrofóbica",
-    b:"Orgánica e hidrofílica",
-    c:"Orgánica hidrofóbica, membranas",
-    d:"Orgánica hidrofóbica, energía primaria"
-  },
-  correcta: "c",
-  explicacion: "Son orgánicos, hidrofóbicos y estructurales."
+    id: "bf34",
+    texto: "Elija la definición correcta para los lípidos:",
+    opciones: {
+      a: "Inorgánica e hidrofóbica",
+      b: "Orgánica e hidrofílica",
+      c: "Orgánica hidrofóbica, membranas",
+      d: "Orgánica hidrofóbica, energía primaria"
+    },
+    correcta: "c",
+    explicacion: "Son orgánicos, hidrofóbicos y estructurales."
 },
 {
-  id: "bf35",
-  texto: "La hidrogenación industrial produce:",
-  opciones: {
-    a:"Isómeros CIS difíciles de metabolizar",
-    b:"TRANS que se metabolizan rápido",
-    c:"TRANS que se almacenan fácilmente",
-    d:"TRANS que mejoran reconocimiento en β-oxidación"
-  },
-  correcta: "c",
-  explicacion: "Los trans se almacenan en tejido adiposo."
+    id: "bf35",
+    texto: "La hidrogenación de los ácidos grasos es un proceso industrial que se utiliza para aumentar la estabilidad de los productos. Este proceso produce:",
+    opciones: {
+      a: "Isómeros CIS difíciles de metabolizar",
+      b: "TRANS que se metabolizan rápido",
+      c: "TRANS que se almacenan fácilmente",
+      d: "TRANS que mejoran reconocimiento en β-oxidación"
+    },
+    correcta: "c",
+    explicacion: "Los trans se almacenan en tejido adiposo."
 },
 {
-  id: "bf36",
-  texto: "Tejido adiposo especializado en producir calor:",
-  opciones: { a:"Amarillo", b:"Pardo", c:"No genera calor", d:"Blanco" },
-  correcta: "b",
-  explicacion: "El tejido pardo genera calor."
+    id: "bf36",
+    texto: "Existe un tipo de tejido adiposo que se especializa en la producción de calor, ¿cómo se llama este?",
+    opciones: { a: "Amarillo", b: "Pardo", c: "No genera calor", d: "Blanco" },
+    correcta: "b",
+    explicacion: "El tejido pardo genera calor."
 },
 {
-  id: "bf37",
-  texto: "Rutas activadas en ayuno:",
-  opciones: {
-    a:"Glucogenogénesis y glucólisis",
-    b:"Glucólisis y β-oxidación",
-    c:"Gluconeogénesis y glucogenólisis",
-    d:"Glucólisis y glucogenogénesis"
-  },
-  correcta: "c",
-  explicacion: "Ayuno activa gluconeogénesis y glucogenólisis."
+    id: "bf37",
+    texto: "Las rutas metabólicas de carbohidratos que se activan durante el ayuno son:",
+    opciones: {
+      a: "Glucogenogénesis y glucólisis",
+      b: "Glucólisis y β-oxidación",
+      c: "Gluconeogénesis y glucogenólisis",
+      d: "Glucólisis y glucogenogénesis"
+    },
+    correcta: "c",
+    explicacion: "Ayuno activa gluconeogénesis y glucogenólisis."
 },
 {
-  id: "bf38",
-  texto: "¿Qué molécula se convierte en acetil-CoA antes del ciclo de Krebs?",
-  opciones: { a:"Oxalacetato", b:"Acetil-CoA", c:"Citrato", d:"Piruvato" },
-  correcta: "d",
-  explicacion: "El piruvato se transforma en acetil-CoA."
+    id: "bf38",
+    texto: "¿Cuál es la molécula precursora a partir de la cual se forma el Acetil-CoA que ingresa al ciclo de Krebs?",
+    opciones: { a: "Oxalacetato", b: "Acetil-CoA", c: "Citrato", d: "Piruvato" },
+    correcta: "d",
+    explicacion: "El piruvato se transforma en acetil-CoA."
 },
 {
   id: "bf39",
@@ -565,40 +565,40 @@ window.PREGUNTAS_SEM1 = {
   explicacion: "La β-oxidación genera energía en ayuno."
 },
 {
-  id: "bf41",
-  texto: "Función de la colesterol estearasa pancreática:",
-  opciones: {
-    a:"Hidrolizar triglicéridos",
-    b:"Activar sales biliares",
-    c:"Hidrolizar ésteres de colesterol",
-    d:"Transportar colesterol"
-  },
-  correcta: "c",
-  explicacion: "Libera colesterol libre."
+    id: "bf41",
+    texto: "¿Cuál es la función principal de la colesterol estearasa pancreática durante la digestión?",
+    opciones: {
+      a: "Hidrolizar triglicéridos",
+      b: "Activar sales biliares",
+      c: "Hidrolizar ésteres de colesterol",
+      d: "Transportar colesterol"
+    },
+    correcta: "c",
+    explicacion: "Libera colesterol libre."
 },
 {
-  id: "bf42",
-  texto: "¿Qué afecta la velocidad enzimática?",
-  opciones: {
-    a:"Concentración del producto",
-    b:"Temperatura y pH",
-    c:"Número de ribosomas",
-    d:"Tipo de enlace peptídico"
-  },
-  correcta: "b",
-  explicacion: "El pH y temperatura modifican actividad."
+     id: "bf42",
+    texto: "¿Cuál de los siguientes factores puede afectar la velocidad de una reacción enzimática al modificar la actividad de la enzima?",
+    opciones: {
+      a: "Concentración del producto",
+      b: "Temperatura y pH",
+      c: "Número de ribosomas",
+      d: "Tipo de enlace peptídico"
+    },
+    correcta: "b",
+    explicacion: "El pH y temperatura modifican actividad."
 },
 {
-  id: "bf43",
-  texto: "¿Qué caracteriza a las enzimas?",
-  opciones: {
-    a:"Se consumen en reacción",
-    b:"Funcionan a cualquier pH",
-    c:"Disminuyen energía de activación",
-    d:"Almacenan energía"
-  },
-  correcta: "c",
-  explicacion: "Las enzimas reducen energía de activación."
+    id: "bf43",
+    texto: "¿Cuál de las siguientes afirmaciones describe correctamente una característica fundamental de las enzimas?",
+    opciones: {
+      a: "Se consumen en reacción",
+      b: "Funcionan a cualquier pH",
+      c: "Disminuyen la energía de activación",
+      d: "Almacenan energía"
+    },
+    correcta: "c",
+    explicacion: "Las enzimas reducen energía de activación."
 },
 {
   id: "bf44",
@@ -953,4 +953,5 @@ window.PREGUNTAS_SEM1 = {
   ]
 
 };
+
 
