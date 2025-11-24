@@ -607,6 +607,18 @@
       color: var(--text-muted);
     }
 
+
+
+    .question-image {
+      margin: 0.75rem 0;
+      text-align: center;
+    }
+
+    .question-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
 </style>
 </head>
 <body>
@@ -1269,10 +1281,15 @@
           qDiv.dataset.explanation = preg.explicacion || "";
           qDiv.dataset.open = "false";
 
+          const imgHtml = preg.imagen
+            ? `<div class="question-image"><img src="img/${preg.imagen}" alt="Imagen de la pregunta" /></div>`
+            : "";
+
           qDiv.innerHTML = `
             <div class="question-title">
               ${index + 1}. ${preg.texto}
             </div>
+            ${imgHtml}
             <div class="options">
               ${preg.opciones.a ? `<label><input type="radio" name="${preg.id}" value="a" /> a) ${preg.opciones.a}</label>` : ""}
               ${preg.opciones.b ? `<label><input type="radio" name="${preg.id}" value="b" /> b) ${preg.opciones.b}</label>` : ""}
@@ -1806,10 +1823,15 @@ document.addEventListener("keydown", (ev) => {
         qArea.style.display = "block";
         summaryBox.style.display = "none";
 
+        const imgHtml = preg.imagen
+          ? `<div class="question-image"><img src="img/${preg.imagen}" alt="Imagen de la pregunta" /></div>`
+          : "";
+
         qArea.innerHTML = `
           <p class="intro-text">Pregunta ${idx + 1} de ${total} · Semestre ${item.sem}</p>
           <div class="question-card">
             <div class="question-title">${preg.texto}</div>
+            ${imgHtml}
             <div class="options">
               ${preg.opciones.a ? `<label><input type="radio" name="exam-answer" value="a" /> a) ${preg.opciones.a}</label>` : ""}
               ${preg.opciones.b ? `<label><input type="radio" name="exam-answer" value="b" /> b) ${preg.opciones.b}</label>` : ""}
