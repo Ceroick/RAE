@@ -699,7 +699,7 @@ window.PREGUNTAS_SEM1 = {
         c: "23% guanina, 12% timina, 23% adenina",
         d: "27% timina, 27% adenina, 23% citosina"
       },
-      correcta: "a",
+      correcta: "b",
       explicacion: "G=C, el resto se reparte entre T y A."
     },
     {
@@ -1128,4 +1128,5 @@ window.PREGUNTAS_SEM1 = {
     }
   ]
 };
+
 
