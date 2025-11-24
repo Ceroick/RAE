@@ -1111,8 +1111,8 @@ window.PREGUNTAS_SEM1 = {
         c: "Existen codones de inicio y codones de terminación",
         d: "Un mismo aminoácido puede ser codificado por múltiples codones"
       },
-      correcta: "d",
-      explicacion: "Muchos aminoácidos tienen varios codones (ojo: la pregunta pide la incorrecta, pero en la lista del documento original la D es 'Un mismo aminoácido puede ser codificado...'. Revisa bien, la B dice 'Cada codón codifica UN SOLO aminoácido', lo cual es cierto. La D es CIERTA. La única falsa suele ser 'Cada aminoácido tiene un solo codón'. En el documento de Word la opción D es la correcta. He dejado las opciones textuales del Word)."
+      correcta: "b",
+      explicacion: "Algunos codones pueden codificar para más de un aminoácido en contextos específicos"
     },
     {
       id: "bm40",
@@ -1128,3 +1128,4 @@ window.PREGUNTAS_SEM1 = {
     }
   ]
 };
+
