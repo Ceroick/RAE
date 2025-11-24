@@ -898,6 +898,7 @@ window.PREGUNTAS_SEM3 = {
     {
       id: "eyf13",
       texto: "Mujer de 22 años que sufre de episodios recurrentes de mareo asociados a sensación punzante en el pecho de inicio súbito y que finalizan espontáneamente después de 2 minutos además de palidez y nauseas. Dichos episodios se vienen presentando desde hace 2 años, motivo por el cual se realiza un ECG ambulatorio para determinar el origen de los síntomas. Según los hallazgos del ECG la causa mas probable de sus síntomas es:",
+      imagen: "2.png",
       opciones: {
         a: "Disminución de la precarga",
         b: "Disminución de la poscarga",
@@ -922,6 +923,7 @@ window.PREGUNTAS_SEM3 = {
     {
       id: "eyf15",
       texto: "La rama coronaria comprometida según los hallazgos del ECG es:",
+      imagen: "3.png",
       opciones: {
         a: "Descendente anterior",
         b: "Circunfleja",
@@ -1236,5 +1238,6 @@ window.PREGUNTAS_SEM3 = {
     }
   ]
 };
+
 
 
