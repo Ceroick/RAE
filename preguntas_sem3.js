@@ -917,7 +917,7 @@ window.PREGUNTAS_SEM3 = {
         d: "Derrame pericárdico"
       },
       correcta: "a",
-      explicacion: "La falla del VI produce congestión pulmonar aguda [cite: 560-561]."
+      explicacion: "La falla del VI produce congestión pulmonar aguda ."
     },
     {
       id: "eyf15",
@@ -1236,4 +1236,5 @@ window.PREGUNTAS_SEM3 = {
     }
   ]
 };
+
 
