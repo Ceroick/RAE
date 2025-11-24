@@ -252,7 +252,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Resolución 1020 de 2022"
       },
       correcta: "c",
-      [cite_start]explicacion: "La Resolución 1035 de 2022 es la que aprueba el PDSP 2022-2031[cite: 1547]."
+      explicacion: "La Resolución 1035 de 2022 es la que aprueba el PDSP 2022-2031[cite: 1547]."
     },
     {
       id: "sc5_2",
@@ -263,7 +263,7 @@ window.PREGUNTAS_SEM5 = {
         c: "Permiten los procesos de selección de recurso humano y la evaluación del desempeño"
       },
       correcta: "a",
-      [cite_start]explicacion: "La función principal de los indicadores es medir resultados y orientar la toma de decisiones[cite: 1550]."
+      explicacion: "La función principal de los indicadores es medir resultados y orientar la toma de decisiones[cite: 1550]."
     },
     {
       id: "sc5_3",
@@ -275,7 +275,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Gobierno y gobernanza, Atención primaria en salud, Gestión intersectorial de los determinantes sociales, cambio climático, gestión del talento humano, gestión del conocimiento, Atención integral a la infancia"
       },
       correcta: "d",
-      [cite_start]explicacion: "La estructura oficial incluye gobernanza, APS, determinantes, cambio climático y talento humano[cite: 1557]."
+      explicacion: "La estructura oficial incluye gobernanza, APS, determinantes, cambio climático y talento humano[cite: 1557]."
     },
     {
       id: "sc5_4",
@@ -287,7 +287,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Conflicto armado, cultura, Ingresos económicos, Empleo."
       },
       correcta: "a",
-      [cite_start]explicacion: "Los determinantes estructurales son cultura, valores, políticas macroeconómicas y ejes de desigualdad[cite: 1559]."
+      explicacion: "Los determinantes estructurales son cultura, valores, políticas macroeconómicas y ejes de desigualdad[cite: 1559]."
     },
     {
       id: "sc5_5",
@@ -297,7 +297,7 @@ window.PREGUNTAS_SEM5 = {
         b: "F"
       },
       correcta: "a",
-      [cite_start]explicacion: "Esa es la clasificación aceptada: intervención, desempeño y jerarquía[cite: 1564]."
+      explicacion: "Esa es la clasificación aceptada: intervención, desempeño y jerarquía[cite: 1564]."
     },
     {
       id: "sc5_6",
@@ -307,7 +307,7 @@ window.PREGUNTAS_SEM5 = {
         b: "F"
       },
       correcta: "b",
-      [cite_start]explicacion: "La efectividad pertenece a indicadores de desempeño, no de intervención[cite: 1565]."
+      explicacion: "La efectividad pertenece a indicadores de desempeño, no de intervención[cite: 1565]."
     },
     {
       id: "sc5_7",
@@ -317,7 +317,7 @@ window.PREGUNTAS_SEM5 = {
         b: "F"
       },
       correcta: "b",
-      [cite_start]explicacion: "Los estratégicos y de gestión pertenecen a indicadores de jerarquía[cite: 1566]."
+      explicacion: "Los estratégicos y de gestión pertenecen a indicadores de jerarquía[cite: 1566]."
     },
     {
       id: "sc5_8",
@@ -327,7 +327,7 @@ window.PREGUNTAS_SEM5 = {
         b: "F"
       },
       correcta: "a",
-      [cite_start]explicacion: "Eficiencia y eficacia hacen parte de los indicadores de desempeño[cite: 1567]."
+      explicacion: "Eficiencia y eficacia hacen parte de los indicadores de desempeño[cite: 1567]."
     },
     {
       id: "sc5_9",
@@ -337,7 +337,7 @@ window.PREGUNTAS_SEM5 = {
         b: "F"
       },
       correcta: "a",
-      [cite_start]explicacion: "Proceso–producto–resultado son parte del nivel de intervención[cite: 1568]."
+      explicacion: "Proceso–producto–resultado son parte del nivel de intervención[cite: 1568]."
     },
     {
       id: "sc5_10",
@@ -349,7 +349,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Estadística de morbilidad materna extrema"
       },
       correcta: "a",
-      [cite_start]explicacion: "Las estadísticas vitales son nacimientos y defunciones[cite: 1570]."
+      explicacion: "Las estadísticas vitales son nacimientos y defunciones[cite: 1570]."
     },
     {
       id: "sc5_11",
@@ -361,7 +361,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Características de percepción de la atención en salud"
       },
       correcta: "b",
-      [cite_start]explicacion: "Los RIPS permiten analizar morbilidad según uso de servicios[cite: 1576]."
+      explicacion: "Los RIPS permiten analizar morbilidad según uso de servicios[cite: 1576]."
     },
     {
       id: "sc5_12",
@@ -373,7 +373,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Procesos analítico descriptivo de los indicadores de pobreza multidimensional de los territorios"
       },
       correcta: "c",
-      [cite_start]explicacion: "El ASIS es un proceso analítico–sintético basado en determinantes sociales[cite: 1582]."
+      explicacion: "El ASIS es un proceso analítico–sintético basado en determinantes sociales[cite: 1582]."
     },
     {
       id: "sc5_13",
@@ -385,7 +385,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Análisis de determinantes sociales, Priorización, toma de decisiones"
       },
       correcta: "d",
-      [cite_start]explicacion: "ASIS incluye análisis de determinantes, priorización y decisiones[cite: 1588]."
+      explicacion: "ASIS incluye análisis de determinantes, priorización y decisiones[cite: 1588]."
     },
     {
       id: "sc5_14",
@@ -397,7 +397,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Bases de datos de lideres sociales, cartografía social, periódicos"
       },
       correcta: "b",
-      [cite_start]explicacion: "Los insumos del ASIS provienen de fuentes oficiales de datos[cite: 1591]."
+      explicacion: "Los insumos del ASIS provienen de fuentes oficiales de datos[cite: 1591]."
     },
     {
       id: "sc5_15",
@@ -409,7 +409,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Sistema Integrado para reprogramaciones en salud"
       },
       correcta: "a",
-      [cite_start]explicacion: "SISPRO significa Sistema Integrado de Información de la Protección Social[cite: 1595]."
+      explicacion: "SISPRO significa Sistema Integrado de Información de la Protección Social[cite: 1595]."
     },
     {
       id: "sc5_16",
@@ -421,7 +421,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Configuración del territorio, Condiciones sociales, económicas y de calidad de vida desde la perspectiva de los determinantes sociales , Situación de salud y calidad de vida , análisis de las respuestas de los diferentes actores, Priorización de los problemas y necesidades, Propuestas y recomendaciones."
       },
       correcta: "d",
-      [cite_start]explicacion: "La metodología ASIS se estructura alrededor de territorio, condiciones, situación de salud, actores y priorización[cite: 1603]."
+      explicacion: "La metodología ASIS se estructura alrededor de territorio, condiciones, situación de salud, actores y priorización[cite: 1603]."
     },
     {
       id: "sc5_17",
@@ -433,7 +433,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Grupo focal"
       },
       correcta: "c",
-      [cite_start]explicacion: "El árbol de problemas es la base estructural para formular intervenciones[cite: 1607]."
+      explicacion: "El árbol de problemas es la base estructural para formular intervenciones[cite: 1607]."
     },
     {
       id: "sc5_18",
@@ -445,7 +445,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Establecer alternativas de solución"
       },
       correcta: "a",
-      [cite_start]explicacion: "El diagnóstico del problema es el primer paso en la formulación[cite: 1610]."
+      explicacion: "El diagnóstico del problema es el primer paso en la formulación[cite: 1610]."
     },
     {
       id: "sc5_19",
@@ -457,7 +457,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Definir los determinantes que originan el problema y su relación causal"
       },
       correcta: "b",
-      [cite_start]explicacion: "El árbol de problemas analiza causas y efectos del problema central[cite: 1616]."
+      explicacion: "El árbol de problemas analiza causas y efectos del problema central[cite: 1616]."
     },
     {
       id: "sc5_20",
@@ -469,7 +469,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Actor, Años de experiencia, fase de participación (formulación, implementación, evaluación seguimiento)."
       },
       correcta: "a",
-      [cite_start]explicacion: "La fase de participación y el interés particular son claves en el análisis de actores[cite: 1620]."
+      explicacion: "La fase de participación y el interés particular son claves en el análisis de actores[cite: 1620]."
     },
     {
       id: "sc5_21",
@@ -481,7 +481,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Todas las anteriores"
       },
       correcta: "d",
-      [cite_start]explicacion: "Toda intervención debe incluir indicadores de proceso, producto y resultado[cite: 1628]."
+      explicacion: "Toda intervención debe incluir indicadores de proceso, producto y resultado[cite: 1628]."
     },
     {
       id: "sc5_22",
@@ -493,7 +493,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Ninguna de las anteriores."
       },
       correcta: "a",
-      [cite_start]explicacion: "La estructura tradicional incluye árbol de problemas y de medios–fines[cite: 1631]."
+      explicacion: "La estructura tradicional incluye árbol de problemas y de medios–fines[cite: 1631]."
     },
     {
       id: "sc5_23",
@@ -505,7 +505,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Etnia, Género, Vivienda."
       },
       correcta: "b",
-      [cite_start]explicacion: "Los ejes de desigualdad incluyen clase social, género, edad y territorio[cite: 1637]."
+      explicacion: "Los ejes de desigualdad incluyen clase social, género, edad y territorio[cite: 1637]."
     },
     {
       id: "sc5_24",
@@ -517,7 +517,7 @@ window.PREGUNTAS_SEM5 = {
         d: "Todas las anteriores"
       },
       correcta: "d",
-      [cite_start]explicacion: "El sistema de vigilancia incluye información, intervención y evaluación[cite: 1644]."
+      explicacion: "El sistema de vigilancia incluye información, intervención y evaluación[cite: 1644]."
     }
   ],
   semiologia_rep: [
@@ -607,3 +607,4 @@ window.PREGUNTAS_SEM5 = {
     }
   ]
 };
+
