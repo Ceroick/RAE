@@ -1269,7 +1269,7 @@
         return;
       }
 
-      const preguntas = shuffle(banco[key]);
+      const preguntas = banco[key];
 
       preguntas.forEach((preg, index) => {
         const qDiv = document.createElement("div");
@@ -1285,26 +1285,38 @@
             ? `<div class="question-image"><img src="img/${preg.imagen}" alt="Imagen de la pregunta" /></div>`
             : "";
 
-          // Generar y mezclar las opciones según el JSON (a, b, c, d, e, etc.)
-          const optionKeys = Object.keys(preg.opciones || {}).filter((key) => preg.opciones[key]);
-          const shuffledKeys = shuffle(optionKeys);
-
-          const optionsHtml = shuffledKeys
-            .map(
-              (letra) =>
-                `<label><input type="radio" name="${preg.id}" value="${letra}" /> ${letra}) ${preg.opciones[letra]}</label>`
-            )
-            .join("");
-
           qDiv.innerHTML = `
             <div class="question-title">
               ${index + 1}. ${preg.texto}
             </div>
             ${imgHtml}
             <div class="options">
-              ${optionsHtml}
+              ${preg.opciones.a ? `<label><input type="radio" name="${preg.id}" value="a" /> a) ${preg.opciones.a}</label>` : ""}
+              ${preg.opciones.b ? `<label><input type="radio" name="${preg.id}" value="b" /> b) ${preg.opciones.b}</label>` : ""}
+              ${preg.opciones.c ? `<label><input type="radio" name="${preg.id}" value="c" /> c) ${preg.opciones.c}</label>` : ""}
+              ${preg.opciones.d ? `<label><input type="radio" name="${preg.id}" value="d" /> d) ${preg.opciones.d}</label>` : ""}
             </div>
-          </div>
+            <div class="feedback"></div>
+          `;
+        } else {
+          // Preguntas abiertas
+          qDiv.dataset.correct = "";
+          qDiv.dataset.explanation = "";
+          qDiv.dataset.open = "true";
+
+          if (sem === "5" && key === "semiologia_rep") {
+            // Módulo de repaso de semiología: parche "Toca para revelar"
+            qDiv.innerHTML = `
+              <div class="question-title">
+                ${index + 1}. ${preg.texto}
+              </div>
+              <div class="options">
+                <button type="button" class="reveal-btn">Toca para revelar</button>
+                <div class="reveal-content" style="display:none;">
+                  <p><strong>Respuesta:</strong> ${preg.respuesta || ""}</p>
+                  <p><strong>Explicación:</strong> ${preg.explicacion || ""}</p>
+                </div>
+              </div>
             `;
           } else {
             // Resto de preguntas abiertas
@@ -1748,7 +1760,6 @@ document.addEventListener("keydown", (ev) => {
     });
   </script>
   <script>
-    const LOGIN_ACTIVADO = false;   // Cambia a false para desactivar el login
     (function () {
       const openBtn = document.getElementById("global-exam-btn");
       const overlay = document.getElementById("full-exam-overlay");
@@ -1816,17 +1827,7 @@ document.addEventListener("keydown", (ev) => {
           ? `<div class="question-image"><img src="img/${preg.imagen}" alt="Imagen de la pregunta" /></div>`
           : "";
 
-        
-        // Generar y mezclar las opciones de la pregunta actual
-        const optionKeys = Object.keys(preg.opciones || {}).filter((key) => preg.opciones[key]);
-        const shuffledOptionKeys = shuffle(optionKeys);
-        const optionsHtml = shuffledOptionKeys
-          .map(
-            (letra) =>
-              `<label><input type="radio" name="exam-answer" value="${letra}" /> ${letra}) ${preg.opciones[letra]}</label>`
-          )
-          .join("");
-qArea.innerHTML = `
+        qArea.innerHTML = `
           <p class="intro-text">Pregunta ${idx + 1} de ${total} · Semestre ${item.sem}</p>
           <div class="question-card">
             <div class="question-title">${preg.texto}</div>
@@ -1988,7 +1989,6 @@ qArea.innerHTML = `
       });
     })();
   </script>
-  
 
 </body>
 </html>
