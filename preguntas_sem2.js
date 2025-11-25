@@ -437,14 +437,14 @@ window.PREGUNTAS_SEM2 = {
     },
     {
       id: "aph19",
-      texto: "Según el caso anterior , ¿que acciones deberia usted realizar como primera atencion de este paciente ?",
+      texto: "Usted se encuentra de vacaciones en una zona rural agricola a una hora de la carretera principal, de repente ingresa un trabajador el cual se encontraba fumigando los cultivos , tenia su careta protectora con filtros respiratorios nuevos, refiriendole disnea , diaforesis , temblor , náuseas, vómitos, diarrea, cólicos, sialorrea , mareo, por lo que ud toma signos vitales y encuentra FC: 130lpm FR 20 rpm TA 90/60mmHg. En este caso usted se encuentra ante un posible caso de intoxicacion; Según el caso anterior , ¿que acciones deberia usted realizar como primera atencion de este paciente ?",
       opciones: {
         a: "Dar a beber leche y llamar a emergencias",
         b: "Inducir el vomito, dar abundante agua y llamar a emergencias",
         c: "Retirar prendas de vestir, lavar con abundante agua y llevar a un centro asistencial.",
         d: "Llamar a emergencias, retirar de la fuente de intoxicación, proporcionar oxigeno."
       },
-      correcta: "d",
+      correcta: "c",
       explicacion: "Se debe retirar de la fuente y dar soporte vital."
     },
     {
@@ -963,5 +963,6 @@ window.PREGUNTAS_SEM2 = {
     }
   ]
 };
+
 
 
