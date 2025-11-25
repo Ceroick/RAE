@@ -432,8 +432,8 @@ window.PREGUNTAS_SEM2 = {
         c: "Cutanea",
         d: "Endogena"
       },
-      correcta: "a",
-      explicacion: "La vía más común en fumigación es inhalación."
+      correcta: "c",
+      explicacion: "La piel tambien puede absorber los toxicos."
     },
     {
       id: "aph19",
@@ -963,4 +963,5 @@ window.PREGUNTAS_SEM2 = {
     }
   ]
 };
+
 
