@@ -1,1 +1,1994 @@
-.
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<link rel="icon" href="icon.png" type="image/png">
+  <meta charset="UTF-8" />
+  <title>Simulador RAEs - Medicina</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg-main: #f5f7fb;
+      --card-bg: #ffffff;
+      --accent: #4f46e5;
+      --accent-soft: #e0e7ff;
+      --correct: #16a34a;
+      --incorrect: #dc2626;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --border-soft: #e5e7eb;
+      --radius-lg: 14px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff, #f9fafb);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1000px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      padding: 24px 20px 28px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.03em;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .pill-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      margin-bottom: 8px;
+    }
+
+    .pill {
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .mode-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      border: 1px solid #e0e7ff;
+      margin: 0 auto 10px;
+      font-size: 0.85rem;
+    }
+
+    .mode-toggle span.label {
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .mode-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .mode-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    }
+
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    details.semester {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      background: var(--card-bg);
+      overflow: hidden;
+      transition: box-shadow 0.2s ease, transform 0.08s ease;
+    }
+
+    details.semester[open] {
+      box-shadow: var(--shadow-soft);
+      transform: translateY(-1px);
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .semester-title {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .semester-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .summary-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      font-size: 0.75rem;
+      background: #f9fafb;
+    }
+
+    .chevron {
+      font-size: 1.1rem;
+      transition: transform 0.2s ease;
+    }
+
+    details[open] .chevron {
+      transform: rotate(90deg);
+    }
+
+    .content {
+      border-top: 1px solid var(--border-soft);
+      padding: 14px 16px 18px;
+      background: linear-gradient(to bottom, #ffffff, #f9fafb);
+    }
+
+    .intro-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .module-toggle {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .module-btn {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      background: #f3f4ff;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .module-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 6px 14px rgba(79, 70, 229, 0.35);
+    }
+
+    .module {
+      display: none;
+      margin-top: 4px;
+    }
+
+    .module.active {
+      display: block;
+    }
+
+    .quiz-scope {
+      margin-top: 6px;
+    }
+
+    .question-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .question {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-soft);
+      background: #ffffff;
+      position: relative;
+    }
+
+    .question-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.9rem;
+    }
+
+    .options label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .options input[type="radio"] {
+      accent-color: var(--accent);
+    }
+
+    .feedback {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    .feedback.correct {
+      color: var(--correct);
+    }
+
+    .feedback.incorrect {
+      color: var(--incorrect);
+    }
+
+    .question.correct {
+      border-color: rgba(22, 163, 74, 0.6);
+      background: #ecfdf3;
+    }
+
+    .question.incorrect {
+      border-color: rgba(220, 38, 38, 0.6);
+      background: #fef2f2;
+    }
+
+    .question::after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      display: none;
+    }
+
+    .question.correct::after {
+      display: block;
+      border-color: var(--correct);
+    }
+
+    .question.incorrect::after {
+      display: block;
+      border-color: var(--incorrect);
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    button.check-btn,
+    button.single-btn {
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+      transition: transform 0.08s ease, box-shadow 0.12s ease,
+        background 0.12s ease;
+    }
+
+    button.check-btn:hover,
+    button.single-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(79, 70, 229, 0.3);
+      background: #4338ca;
+    }
+
+    button.check-btn:active,
+    button.single-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 5px 12px rgba(79, 70, 229, 0.25);
+    }
+
+    .btn-icon {
+      font-size: 1rem;
+    }
+
+    footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    footer span {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .app {
+        padding: 18px 14px 22px;
+        border-radius: 18px;
+      }
+      header h1 {
+        font-size: 1.4rem;
+      }
+      summary {
+        padding: 10px 12px;
+      }
+      .content {
+        padding: 10px 12px 12px;
+      }
+      .mode-toggle {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+  
+    .exam-global {
+      margin-top: 0.75rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .exam-btn {
+      font-size: 0.85rem;
+    }
+
+    .full-exam-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .full-exam-overlay.hidden {
+      display: none;
+    }
+
+    .full-exam-box {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      max-width: 800px;
+      width: 95%;
+      max-height: 90vh;
+      overflow: auto;
+      padding: 1.5rem;
+    }
+
+    .full-exam-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .full-exam-header h2 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .btn-close {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+    }
+
+    .btn-close:hover {
+      background: var(--bg-soft);
+    }
+
+    .exam-start-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    .exam-start-form label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      gap: 4px;
+      min-width: 220px;
+    }
+
+    .exam-start-form input {
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      font-size: 0.9rem;
+    }
+
+    .exam-question-area .question-card {
+      margin-bottom: 0.75rem;
+    }
+
+    .exam-nav {
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .exam-summary h3 {
+      margin-top: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.3rem;
+      font-size: 0.85rem;
+    }
+
+    .score-table th,
+    .score-table td {
+      border: 1px solid var(--border-soft);
+      padding: 4px 6px;
+      text-align: left;
+    }
+
+    .prev-btn {
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .prev-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(79, 70, 229, 0.3);
+      background: #4338ca;
+    }
+
+    .prev-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 5px 12px rgba(79, 70, 229, 0.25);
+    }
+
+    .reveal-btn {
+      margin-top: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px dashed var(--accent);
+      background: #eef2ff;
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .reveal-content {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #f9fafb;
+      border: 1px solid var(--border-soft);
+      font-size: 0.9rem;
+    }
+
+    .module-summary {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #eef2ff;
+      border: 1px solid var(--accent-soft);
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .module-summary h4 {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+    }
+
+    .module-summary p {
+      margin: 2px 0;
+    }
+
+    .module-summary ul {
+      margin: 6px 0 0;
+      padding-left: 18px;
+    }
+
+    .module-summary li {
+      margin-bottom: 4px;
+    }
+
+    .module-summary .bad-question {
+      margin-bottom: 6px;
+    }
+
+    .module-summary .bad-question-title {
+      font-weight: 600;
+    }
+
+    .module-summary .bad-question-detail {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+
+
+    .question-image {
+      margin: 0.75rem 0;
+      text-align: center;
+    }
+
+    .question-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+</style>
+</head>
+<body>
+  <main class="app">
+    <div id="login-overlay" style="
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    ">
+      <div style="
+        background: #ffffff;
+        padding: 20px 18px;
+        border-radius: 14px;
+        max-width: 320px;
+        width: 90%;
+        box-shadow: 0 10px 25px rgba(15,23,42,0.3);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      ">
+        <h2 style="margin-top:0; font-size:1.1rem; text-align:center;">Iniciar sesión</h2>
+        <p id="login-error" style="color:#dc2626; font-size:0.85rem; display:none; text-align:center; margin-bottom:8px;">
+          Usuario o contraseña incorrectos.
+        </p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <input id="login-usuario" type="text" placeholder="Usuario" style="padding:8px; border-radius:999px; border:1px solid #dde;">
+          <input id="login-password" type="password" placeholder="Contraseña" style="padding:8px; border-radius:999px; border:1px solid #dde;">
+          <button id="login-btn" type="button" style="
+            padding:8px;
+            border-radius:999px;
+            background:#4f46e5;
+            border:none;
+            color:white;
+            font-weight:600;
+            cursor:pointer;
+          ">Entrar</button>
+        </div>
+      </div>
+    </div>
+
+    <header>
+      <h1>Simulador RAEs - Medicina</h1>
+      <p>Selecciona el semestre, luego el módulo, y elige si quieres practicar pregunta a pregunta o todo el test.</p>
+      <div class="pill-row">
+        <div class="pill">Autoestudio</div>
+        <div class="pill">Medicina</div>
+        <div class="pill">1.º a 5.º semestre</div>
+      </div>
+      <div class="mode-toggle">
+        <span class="label">Modo:</span>
+        <button class="mode-btn active" data-mode="single">Pregunta a pregunta</button>
+        <button class="mode-btn" data-mode="full">Test completo</button>
+      </div>
+    
+      <div class="exam-global">
+        <button id="global-exam-btn" class="mode-btn exam-btn">🧪 Examen completo</button>
+      </div></header>
+
+    <section class="accordion">
+      <!-- PRIMER SEMESTRE -->
+      <details class="semester">
+        <summary>
+          <div class="summary-left">
+            <span class="semester-title">Primer semestre</span>
+            <span class="semester-subtitle">Salud comunitaria, biofísica y biología molecular</span>
+          </div>
+          <div class="summary-right">
+            <span class="badge">3 módulos</span>
+            <span class="chevron">▶</span>
+          </div>
+        </summary>
+        <div class="content" data-semester="1">
+          <p class="intro-text">
+            Fundamentos de salud pública, bioquímica básica y biología molecular y celular.
+          </p>
+
+          <div class="module-toggle">
+            <button class="module-btn active" data-target="salud1">Salud comunitaria I</button>
+            <button class="module-btn" data-target="biofisica">Biofísica, bioquímica y metabolismo</button>
+            <button class="module-btn" data-target="biomol">Biología molecular y celular</button>
+          </div>
+
+          <!-- Módulo Salud comunitaria I -->
+          <div class="module active" data-sem="1" data-module="salud1">
+            <div class="quiz-scope">
+              <p class="intro-text">Historia de la medicina, modelos epidemiológicos y determinantes sociales.</p>
+              <div class="question-list"><!-- aquí JS inyecta las preguntas --></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Módulo Biofísica / Bioquímica -->
+          <div class="module" data-sem="1" data-module="biofisica">
+            <div class="quiz-scope">
+              <p class="intro-text">Ácidos y bases, carbohidratos, lípidos, metabolismo energético y vías centrales.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Módulo Biología molecular / celular -->
+          <div class="module" data-sem="1" data-module="biomol">
+            <div class="quiz-scope">
+              <p class="intro-text">ADN, ARN, expresión génica, mutaciones, técnicas de laboratorio y señalización.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- SEGUNDO SEMESTRE -->
+      <details class="semester">
+        <summary>
+          <div class="summary-left">
+            <span class="semester-title">Segundo semestre</span>
+            <span class="semester-subtitle">Reanimación, salud comunitaria y sistemas integrados</span>
+          </div>
+          <div class="summary-right">
+            <span class="badge">4 módulos</span>
+            <span class="chevron">▶</span>
+          </div>
+        </summary>
+        <div class="content" data-semester="2">
+          <p class="intro-text">
+            Reanimación básica, salud comunitaria II y sistemas integradores de órganos.
+          </p>
+
+          <div class="module-toggle">
+            <button class="module-btn active" data-target="reanimacion_basica">Reanimación básica</button>
+            <button class="module-btn" data-target="salud2">Salud comunitaria II</button>
+            <button class="module-btn" data-target="sist_osteomuscular_cardio_renal">Sist. osteomuscular · cardio · renal</button>
+            <button class="module-btn" data-target="sist_digestivo_metabolismo">Sist. digestivo y metabolismo</button>
+          </div>
+
+          <div class="module active" data-sem="2" data-module="reanimacion_basica">
+            <div class="quiz-scope">
+              <p class="intro-text">Soporte vital básico, cadenas de supervivencia y algoritmos iniciales.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="2" data-module="salud2">
+            <div class="quiz-scope">
+              <p class="intro-text">Salud comunitaria II, promoción, prevención y diagnóstico comunitario.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="2" data-module="sist_osteomuscular_cardio_renal">
+            <div class="quiz-scope">
+              <p class="intro-text">Sistemas osteomuscular, cardiorrespiratorio y renal integrados.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="2" data-module="sist_digestivo_metabolismo">
+            <div class="quiz-scope">
+              <p class="intro-text">Sistema digestivo, absorción, metabolismo y su integración clínica.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- TERCER SEMESTRE -->
+      <details class="semester">
+        <summary>
+          <div class="summary-left">
+            <span class="semester-title">Tercer semestre</span>
+            <span class="semester-subtitle">Ética, inmunología y salud comunitaria III</span>
+          </div>
+          <div class="summary-right">
+            <span class="badge">5 módulos</span>
+            <span class="chevron">▶</span>
+          </div>
+        </summary>
+        <div class="content" data-semester="3">
+          <p class="intro-text">
+            Principios éticos, bases de inmunología y salud comunitaria avanzada.
+          </p>
+
+          <div class="module-toggle">
+            <button class="module-btn active" data-target="etica1">Ética y bioética I</button>
+            <button class="module-btn" data-target="inmunologia">Inmunología</button>
+            <button class="module-btn" data-target="salud3">Salud comunitaria III</button>
+            <button class="module-btn" data-target="sistemas_eyf">Sistemas EyF II</button>
+            <button class="module-btn" data-target="sistemas_osteo3">Sist. integradores (osteo/cardio/renal)</button>
+          </div>
+
+          <div class="module active" data-sem="3" data-module="etica1">
+            <div class="quiz-scope">
+              <p class="intro-text">Principios, dilemas éticos y fundamentos de bioética clínica.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="3" data-module="inmunologia">
+            <div class="quiz-scope">
+              <p class="intro-text">Inmunidad innata, adaptativa, hipersensibilidad y autoinmunidad.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="3" data-module="salud3">
+            <div class="quiz-scope">
+              <p class="intro-text">Salud comunitaria III: intervención comunitaria y evaluación.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="3" data-module="sistemas_eyf">
+            <div class="quiz-scope">
+              <p class="intro-text">Estructura y función II: integración de sistemas y correlación clínica.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="3" data-module="sistemas_osteo3">
+            <div class="quiz-scope">
+              <p class="intro-text">Continuación de sistemas integradores osteomuscular, cardiorrespiratorio y renal.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- CUARTO SEMESTRE -->
+      <details class="semester">
+        <summary>
+          <div class="summary-left">
+            <span class="semester-title">Cuarto semestre</span>
+            <span class="semester-subtitle">Ética II, fisiopatología y salud e infección</span>
+          </div>
+          <div class="summary-right">
+            <span class="badge">4 módulos</span>
+            <span class="chevron">▶</span>
+          </div>
+        </summary>
+        <div class="content" data-semester="4">
+          <p class="intro-text">
+            Ética y bioética II, fisiopatología IV, salud comunitaria IV y salud e infección.
+          </p>
+
+          <div class="module-toggle">
+            <button class="module-btn active" data-target="etica2">Ética y bioética II</button>
+            <button class="module-btn" data-target="fisiopatologia4">Fisiopatología IV</button>
+            <button class="module-btn" data-target="salud4">Salud comunitaria IV</button>
+            <button class="module-btn" data-target="infeccion4">Salud e infección (SABER PRO)</button>
+          </div>
+
+          <div class="module active" data-sem="4" data-module="etica2">
+            <div class="quiz-scope">
+              <p class="intro-text">Profundización en bioética, derechos del paciente y dilemas actuales.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="4" data-module="fisiopatologia4">
+            <div class="quiz-scope">
+              <p class="intro-text">Alteraciones fisiopatológicas de sistemas y su correlación clínica.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="4" data-module="salud4">
+            <div class="quiz-scope">
+              <p class="intro-text">Salud comunitaria IV, políticas, gestión y análisis de situación de salud.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="4" data-module="infeccion4">
+            <div class="quiz-scope">
+              <p class="intro-text">Salud e infección, enfoque SABER PRO y competencias en salud pública.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- QUINTO SEMESTRE -->
+      <details class="semester">
+        <summary>
+          <div class="summary-left">
+            <span class="semester-title">Quinto semestre</span>
+            <span class="semester-subtitle">Farmacología, semiología y salud comunitaria V</span>
+          </div>
+          <div class="summary-right">
+            <span class="badge">3 módulos</span>
+            <span class="chevron">▶</span>
+          </div>
+        </summary>
+        <div class="content" data-semester="5">
+          <p class="intro-text">
+            Bases farmacológicas de la terapéutica, repaso de semiología y salud comunitaria V.
+          </p>
+
+          <div class="module-toggle">
+            <button class="module-btn active" data-target="bases_farmaco">Bases farmacológicas</button>
+            <button class="module-btn" data-target="semiologia_rep">Repaso de semiología</button>
+            <button class="module-btn" data-target="salud5">Salud comunitaria V</button>
+          </div>
+
+          <div class="module active" data-sem="5" data-module="bases_farmaco">
+            <div class="quiz-scope">
+              <p class="intro-text">Farmacodinamia, farmacocinética y uso racional de medicamentos.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="5" data-module="semiologia_rep">
+            <div class="quiz-scope">
+              <p class="intro-text">Repaso de semiología médica, signos, síntomas y síndromes.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="module" data-sem="5" data-module="salud5">
+            <div class="quiz-scope">
+              <p class="intro-text">Salud comunitaria V, evaluación de impacto y enfoque poblacional.</p>
+              <div class="question-list"></div>
+              <div class="btn-row">
+                <button class="check-btn" type="button">
+                  <span class="btn-icon">📋</span> Revisar módulo completo
+                </button>
+                <button class="prev-btn" type="button">
+                  <span class="btn-icon">⬅</span> Pregunta anterior
+                </button>
+                <button class="single-btn next-btn" type="button">
+                  <span class="btn-icon">➡</span> Siguiente pregunta
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <footer>
+      Hecho para repasar <span>RAEs de Medicina 1.º–5.º semestre</span>. Llena los bancos de preguntas en la carpeta <code>js</code>.
+    </footer>
+  
+    <!-- Modal examen completo -->
+    <div id="full-exam-overlay" class="full-exam-overlay hidden">
+      <div class="full-exam-box">
+        <div class="full-exam-header">
+          <h2>Examen completo</h2>
+          <button type="button" class="btn-close" id="exam-close-btn">✕</button>
+        </div>
+        <div class="full-exam-body">
+          <form id="exam-start-form" class="exam-start-form">
+            <label>
+              Nombre o usuario
+              <input id="exam-username" type="text" placeholder="Escribe tu nombre" />
+            </label>
+            <button type="submit" class="mode-btn exam-btn">Iniciar examen</button>
+          </form>
+          <div id="exam-question-area" class="exam-question-area" style="display:none;"></div>
+          <div id="exam-summary" class="exam-summary" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+</main>
+
+  <!-- BANCOS DE PREGUNTAS (tú los vas a crear en C:\Users\josem\Documents\RAE\js\) -->
+  <script src="preguntas_sem1.js"></script>
+  <script src="preguntas_sem2.js"></script>
+  <script src="preguntas_sem3.js"></script>
+  <script src="preguntas_sem4.js"></script>
+  <script src="preguntas_sem5.js"></script>
+
+  <script>
+    let currentMode = "single"; // "single" o "full"
+
+    let currentUser = null;
+
+    async function intentarLogin(usuario, password) {
+      try {
+        const resp = await fetch("usuarios.json");
+        const lista = await resp.json();
+        const ok = lista.find(
+          (u) => u.usuario === usuario && u.password === password
+        );
+        return ok || null;
+      } catch (e) {
+        console.error("Error cargando usuarios.json", e);
+        return null;
+      }
+    }
+
+    function prepararLogin() {
+      const overlay = document.getElementById("login-overlay");
+      const userInput = document.getElementById("login-usuario");
+      const passInput = document.getElementById("login-password");
+      const btn = document.getElementById("login-btn");
+      const errorEl = document.getElementById("login-error");
+
+      if (!overlay || !userInput || !passInput || !btn) return;
+
+      async function hacerLogin() {
+        const u = (userInput.value || "").trim();
+        const p = (passInput.value || "").trim();
+
+        if (!u || !p) {
+          errorEl.style.display = "block";
+          errorEl.textContent = "Escribe usuario y contraseña.";
+          return;
+        }
+
+        const ok = await intentarLogin(u, p);
+        if (!ok) {
+          errorEl.style.display = "block";
+          errorEl.textContent = "Usuario o contraseña incorrectos.";
+          return;
+        }
+
+        currentUser = ok.usuario;
+        overlay.style.display = "none";
+        errorEl.style.display = "none";
+      }
+
+      btn.addEventListener("click", hacerLogin);
+      passInput.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") hacerLogin();
+      });
+    }
+
+    function getBanco(sem) {
+      if (sem === "1") return window.PREGUNTAS_SEM1 || null;
+      if (sem === "2") return window.PREGUNTAS_SEM2 || null;
+      if (sem === "3") return window.PREGUNTAS_SEM3 || null;
+      if (sem === "4") return window.PREGUNTAS_SEM4 || null;
+      if (sem === "5") return window.PREGUNTAS_SEM5 || null;
+      return null;
+    }
+
+    
+    function renderModulo(sem, key, moduleEl) {
+      const banco = getBanco(sem);
+      const list = moduleEl.querySelector(".question-list");
+      if (!list) return;
+
+      list.innerHTML = "";
+
+      if (!banco || !banco[key] || !banco[key].length) {
+        const msg = document.createElement("p");
+        msg.className = "intro-text";
+        msg.textContent = "Aún no has cargado preguntas para este módulo.";
+        list.appendChild(msg);
+        return;
+      }
+
+      const preguntas = banco[key];
+
+      preguntas.forEach((preg, index) => {
+        const qDiv = document.createElement("div");
+        qDiv.className = "question";
+
+        // Preguntas tipo test (con opciones)
+        if (preg.opciones) {
+          qDiv.dataset.correct = preg.correcta || "";
+          qDiv.dataset.explanation = preg.explicacion || "";
+          qDiv.dataset.open = "false";
+
+          const imgHtml = preg.imagen
+            ? `<div class="question-image"><img src="img/${preg.imagen}" alt="Imagen de la pregunta" /></div>`
+            : "";
+
+          qDiv.innerHTML = `
+            <div class="question-title">
+              ${index + 1}. ${preg.texto}
+            </div>
+            ${imgHtml}
+            <div class="options">
+              ${preg.opciones.a ? `<label><input type="radio" name="${preg.id}" value="a" /> a) ${preg.opciones.a}</label>` : ""}
+              ${preg.opciones.b ? `<label><input type="radio" name="${preg.id}" value="b" /> b) ${preg.opciones.b}</label>` : ""}
+              ${preg.opciones.c ? `<label><input type="radio" name="${preg.id}" value="c" /> c) ${preg.opciones.c}</label>` : ""}
+              ${preg.opciones.d ? `<label><input type="radio" name="${preg.id}" value="d" /> d) ${preg.opciones.d}</label>` : ""}
+            </div>
+            <div class="feedback"></div>
+          `;
+        } else {
+          // Preguntas abiertas
+          qDiv.dataset.correct = "";
+          qDiv.dataset.explanation = "";
+          qDiv.dataset.open = "true";
+
+          if (sem === "5" && key === "semiologia_rep") {
+            // Módulo de repaso de semiología: parche "Toca para revelar"
+            qDiv.innerHTML = `
+              <div class="question-title">
+                ${index + 1}. ${preg.texto}
+              </div>
+              <div class="options">
+                <button type="button" class="reveal-btn">Toca para revelar</button>
+                <div class="reveal-content" style="display:none;">
+                  <p><strong>Respuesta:</strong> ${preg.respuesta || ""}</p>
+                  <p><strong>Explicación:</strong> ${preg.explicacion || ""}</p>
+                </div>
+              </div>
+            `;
+          } else {
+            // Resto de preguntas abiertas
+            qDiv.innerHTML = `
+              <div class="question-title">
+                ${index + 1}. ${preg.texto}
+              </div>
+              <div class="options">
+                <p><strong>Respuesta:</strong> ${preg.respuesta || ""}</p>
+                <p><strong>Explicación:</strong> ${preg.explicacion || ""}</p>
+              </div>
+            `;
+          }
+        }
+
+        list.appendChild(qDiv);
+      });
+    }
+
+function renderTodosLosModulos() {
+      document.querySelectorAll(".module").forEach((modEl) => {
+        const sem = modEl.dataset.sem;          // "1" a "5"
+        const key = modEl.dataset.module;       // ej: "salud1", "biofisica"
+        renderModulo(sem, key, modEl);
+      });
+    }
+
+    function aplicarModo(mode) {
+      currentMode = mode;
+
+      // Actualizar botones de modo
+      document.querySelectorAll(".mode-btn").forEach((btn) => {
+        if (btn.getAttribute("data-mode") === mode) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+
+      // Ajustar todos los bloques
+      document.querySelectorAll(".quiz-scope").forEach((scope) => {
+        const questions = scope.querySelectorAll(".question");
+        const checkBtn = scope.querySelector(".check-btn");
+        const nextBtn = scope.querySelector(".next-btn");
+        const prevBtn = scope.querySelector(".prev-btn");
+        const feedbackEls = scope.querySelectorAll(".feedback");
+
+        if (!questions.length || !checkBtn || !nextBtn) return;
+
+        // Reset común
+        questions.forEach((q) => {
+          q.classList.remove("correct", "incorrect");
+          q.dataset.answered = "false";
+          q.querySelectorAll("input[type='radio']").forEach((r) => {
+            r.checked = false;
+            r.disabled = false;
+          });
+        });
+        feedbackEls.forEach((fb) => {
+          fb.style.display = "none";
+          fb.textContent = "";
+          fb.classList.remove("correct", "incorrect");
+        });
+
+        if (mode === "single") {
+          checkBtn.style.display = "none";
+          nextBtn.style.display = "inline-flex";
+          if (prevBtn) prevBtn.style.display = "inline-flex";
+          scope.dataset.index = "0";
+          nextBtn.dataset.done = "false";
+
+          questions.forEach((q, i) => {
+            q.style.display = i === 0 ? "block" : "none";
+          });
+        } else {
+          checkBtn.style.display = "inline-flex";
+          nextBtn.style.display = "none";
+          if (prevBtn) prevBtn.style.display = "none";
+
+          questions.forEach((q) => {
+            q.style.display = "block";
+          });
+        }
+      });
+    }
+
+    function attachRadioListeners() {
+      document.querySelectorAll(".question input[type='radio']").forEach((radio) => {
+        radio.addEventListener("change", () => {
+          if (currentMode !== "single") return;
+
+          const q = radio.closest(".question");
+          if (!q || q.dataset.open === "true") return;
+
+          const correct = q.getAttribute("data-correct");
+          const explanation = q.getAttribute("data-explanation") || "";
+          const feedbackEl = q.querySelector(".feedback");
+
+          q.classList.remove("correct", "incorrect");
+          if (feedbackEl) {
+            feedbackEl.classList.remove("correct", "incorrect");
+          }
+
+          if (radio.value === correct) {
+            q.classList.add("correct");
+            if (feedbackEl) {
+              feedbackEl.style.display = "block";
+              feedbackEl.classList.add("correct");
+              feedbackEl.textContent = "✅ Correcto. " + explanation;
+            }
+          } else {
+            q.classList.add("incorrect");
+            if (feedbackEl) {
+              feedbackEl.style.display = "block";
+              feedbackEl.classList.add("incorrect");
+              feedbackEl.textContent = "❌ Incorrecto. Recuerda: " + explanation;
+            }
+          }
+
+          // Opción C: bloquear cambios después de responder
+          q.dataset.answered = "true";
+          q.querySelectorAll("input[type='radio']").forEach((r) => {
+            r.disabled = true;
+          });
+        });
+      });
+    }
+
+    function attachRevealListeners() {
+      document.querySelectorAll(".reveal-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const options = btn.closest(".options");
+          if (!options) return;
+          const content = options.querySelector(".reveal-content");
+          if (!content) return;
+          const isHidden = content.style.display === "none" || content.style.display === "";
+          content.style.display = isHidden ? "block" : "none";
+          btn.textContent = isHidden ? "Ocultar" : "Toca para revelar";
+        });
+      });
+    }
+document.addEventListener("keydown", (ev) => {
+  // ENTER o Flecha Derecha → Siguiente pregunta
+  if (ev.key === "Enter" || ev.key === "ArrowRight") {
+    const btn = document.querySelector(".next-btn");
+    if (btn && !btn.disabled) btn.click();
+  }
+
+  // Flecha Izquierda → Pregunta anterior
+  if (ev.key === "ArrowLeft") {
+    const btn = document.querySelector(".prev-btn");
+    if (btn && !btn.disabled) btn.click();
+  }
+});
+
+    document.addEventListener("DOMContentLoaded", () => {
+      prepararLogin();
+      // Toggle de modo
+      document.querySelectorAll(".mode-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const mode = btn.getAttribute("data-mode");
+          aplicarModo(mode);
+        });
+      });
+
+      // Toggle de módulos en cada semestre
+      document.querySelectorAll(".module-toggle").forEach((toggle) => {
+        const buttons = toggle.querySelectorAll(".module-btn");
+        buttons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const target = btn.dataset.target;
+            const container = toggle.closest(".content");
+
+            buttons.forEach((b) => {
+              b.classList.toggle("active", b === btn);
+            });
+
+            container.querySelectorAll(".module").forEach((mod) => {
+              mod.classList.toggle("active", mod.dataset.module === target);
+            });
+
+            aplicarModo(currentMode);
+          });
+        });
+      });
+
+      // Renderizar todas las preguntas desde los .js
+      renderTodosLosModulos();
+
+      // Listeners de radios (después de renderizar)
+      attachRadioListeners();
+      attachRevealListeners();
+
+      // Botones "Siguiente pregunta"
+      document.querySelectorAll(".next-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (currentMode !== "single") return;
+
+          const scope = btn.closest(".quiz-scope");
+          const questions = scope.querySelectorAll(".question");
+          if (!questions.length) return;
+
+          const checkBtn = scope.querySelector(".check-btn");
+          let index = parseInt(scope.dataset.index || "0", 10);
+
+          // Si ya terminó el módulo, el botón actúa como "Reiniciar"
+          if (btn.dataset.done === "true") {
+            scope.dataset.index = "0";
+            questions.forEach((q, i) => {
+              q.style.display = i === 0 ? "block" : "none";
+              q.classList.remove("correct", "incorrect");
+              q.dataset.answered = "false";
+              q.querySelectorAll("input[type='radio']").forEach((r) => {
+                r.checked = false;
+                r.disabled = false;
+              });
+              const fb = q.querySelector(".feedback");
+              if (fb) {
+                fb.style.display = "none";
+                fb.textContent = "";
+                fb.classList.remove("correct", "incorrect");
+              }
+            });
+
+            // Al reiniciar, eliminar también el resumen del módulo (si existe)
+            const summary = scope.querySelector(".module-summary");
+            if (summary) {
+              summary.remove();
+            }
+
+            // Al reiniciar, ocultamos el botón de revisar (se usa solo al final)
+            if (checkBtn) {
+              if (currentMode === "single") {
+                checkBtn.style.display = "none";
+              }
+            }
+            btn.dataset.done = "false";
+            btn.textContent = "Siguiente pregunta";
+            return;
+          }
+
+          if (index < questions.length - 1) {
+            questions[index].style.display = "none";
+            index++;
+            questions[index].style.display = "block";
+            scope.dataset.index = String(index);
+          } else {
+            // Última pregunta: marcar como terminado y mostrar "Reiniciar"
+            btn.dataset.done = "true";
+            btn.textContent = "Reiniciar";
+            // Aquí mostramos el botón de revisar para este módulo
+            if (checkBtn) {
+              checkBtn.style.display = "inline-flex";
+            }
+          }
+        });
+      });
+      // Botones "Pregunta anterior"
+      document.querySelectorAll(".prev-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (currentMode !== "single") return;
+
+          const scope = btn.closest(".quiz-scope");
+          const questions = scope.querySelectorAll(".question");
+          if (!questions.length) return;
+
+          let index = parseInt(scope.dataset.index || "0", 10);
+          if (index <= 0) return;
+
+          questions[index].style.display = "none";
+          index--;
+          questions[index].style.display = "block";
+          scope.dataset.index = String(index);
+        });
+      });
+
+      // Botones "Revisar módulo completo"
+      document.querySelectorAll(".check-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const scope = btn.closest(".quiz-scope");
+          const moduleEl = btn.closest(".module");
+          const questions = scope.querySelectorAll(".question");
+          if (!questions.length) return;
+
+          const sem = moduleEl ? moduleEl.dataset.sem : null;
+          const key = moduleEl ? moduleEl.dataset.module : null;
+          const skipSummary = sem === "5" && key === "semiologia_rep";
+
+          let totalEvaluable = 0;
+          let correctas = 0;
+          const incorrectDetails = [];
+
+          questions.forEach((q) => {
+            const isOpen = q.dataset.open === "true";
+            const correct = q.getAttribute("data-correct");
+            const explanation = q.getAttribute("data-explanation") || "";
+            const feedbackEl = q.querySelector(".feedback");
+            const selected = q.querySelector("input[type='radio']:checked");
+
+            q.classList.remove("correct", "incorrect");
+            if (feedbackEl) {
+              feedbackEl.classList.remove("correct", "incorrect");
+            }
+
+            // No evaluar preguntas abiertas (tipo repaso / sin opciones)
+            if (isOpen) {
+              if (feedbackEl) {
+                feedbackEl.style.display = "none";
+                feedbackEl.textContent = "";
+              }
+              return;
+            }
+
+            // A partir de aquí solo preguntas tipo test
+            totalEvaluable++;
+
+            const titleEl = q.querySelector(".question-title");
+            const texto = titleEl ? titleEl.textContent.trim() : "";
+
+            if (!selected) {
+              q.classList.add("incorrect");
+              if (feedbackEl) {
+                feedbackEl.style.display = "block";
+                feedbackEl.classList.add("incorrect");
+                feedbackEl.textContent = "Selecciona una opción para esta pregunta.";
+              }
+
+              // Registrar como incorrecta sin respuesta
+              incorrectDetails.push({
+                texto,
+                correcta: correct,
+                correctaTexto: (() => {
+                  const opt = q.querySelector('.options input[value="' + correct + '"]');
+                  return opt && opt.parentElement ? opt.parentElement.textContent.trim() : "";
+                })(),
+                marcada: null,
+                marcadaTexto: null,
+                motivo: "Sin respuesta"
+              });
+
+              return;
+            }
+
+            if (selected.value === correct) {
+              q.classList.add("correct");
+              if (feedbackEl) {
+                feedbackEl.style.display = "block";
+                feedbackEl.classList.add("correct");
+                feedbackEl.textContent = "✅ Correcto. " + explanation;
+              }
+              correctas++;
+            } else {
+              q.classList.add("incorrect");
+              if (feedbackEl) {
+                feedbackEl.style.display = "block";
+                feedbackEl.classList.add("incorrect");
+                feedbackEl.textContent =
+                  "❌ Incorrecto. Respuesta correcta: " +
+                  correct.toUpperCase() +
+                  ". " +
+                  explanation;
+              }
+
+              // Registrar como incorrecta
+              const optCorrect = q.querySelector('.options input[value="' + correct + '"]');
+              const correctText = optCorrect && optCorrect.parentElement
+                ? optCorrect.parentElement.textContent.trim()
+                : "";
+
+              const chosenLabel = selected.parentElement;
+              const chosenText = chosenLabel ? chosenLabel.textContent.trim() : "";
+
+              incorrectDetails.push({
+                texto,
+                correcta: correct,
+                correctaTexto: correctText,
+                marcada: selected.value,
+                marcadaTexto: chosenText,
+                motivo: "Respuesta incorrecta"
+              });
+            }
+          });
+
+          // No mostrar resumen para el módulo de repaso de semiología
+          if (skipSummary) {
+            return;
+          }
+
+          // Construir resumen del módulo
+          let summary = scope.querySelector(".module-summary");
+          if (!summary) {
+            summary = document.createElement("div");
+            summary.className = "module-summary";
+            scope.appendChild(summary);
+          }
+
+          if (!totalEvaluable) {
+            summary.innerHTML = "<p>Este módulo no tiene preguntas tipo test para calificar.</p>";
+            return;
+          }
+
+          const porcentaje = Math.round((correctas * 100) / totalEvaluable);
+          const notaRaw = (correctas * 5) / totalEvaluable;
+          const nota = Math.round(notaRaw * 10) / 10; // un decimal
+
+          let html = "";
+          html += "<h4>Resumen del módulo</h4>";
+          html += "<p>Respondiste correctamente <strong>" + correctas + "</strong> de " + totalEvaluable + " preguntas (" + porcentaje + "%).</p>";
+          html += "<p>Nota simulada: <strong>" + nota.toFixed(1) + "/5.0</strong></p>";
+
+          if (!incorrectDetails.length) {
+            html += "<p>✅ No tuviste errores en este módulo.</p>";
+          } else {
+            html += "<p>Preguntas que respondiste incorrectamente o sin responder:</p>";
+            html += "<ul>";
+            incorrectDetails.forEach((item) => {
+              html += "<li class=\"bad-question\">";
+              html += "<div class=\"bad-question-title\">" + item.texto + "</div>";
+              html += "<div class=\"bad-question-detail\">";
+              if (item.motivo === "Sin respuesta") {
+                html += "Sin respuesta. ";
+              } else {
+                html += "Marcaste: <em>" + (item.marcadaTexto || item.marcada) + "</em>. ";
+              }
+              html += "Correcta: <strong>" + item.correcta.toUpperCase() + "</strong>";
+              if (item.correctaTexto) {
+                html += " (" + item.correctaTexto + ")";
+              }
+              html += ".</div>";
+              html += "</li>";
+            });
+            html += "</ul>";
+          }
+
+          summary.innerHTML = html;
+        });
+      });
+
+      // Modo inicial
+      aplicarModo("single");
+    });
+  </script>
+  <script>
+    (function () {
+      const openBtn = document.getElementById("global-exam-btn");
+      const overlay = document.getElementById("full-exam-overlay");
+      if (!openBtn || !overlay) return;
+
+      const startForm = document.getElementById("exam-start-form");
+      const usernameInput = document.getElementById("exam-username");
+      const qArea = document.getElementById("exam-question-area");
+      const summaryBox = document.getElementById("exam-summary");
+      const closeBtn = document.getElementById("exam-close-btn");
+      const SCORE_KEY = "raeExamScores";
+
+      let examState = null;
+
+      function getAllTestQuestions() {
+        const bancos = [
+          { sem: "1", data: window.PREGUNTAS_SEM1 },
+          { sem: "2", data: window.PREGUNTAS_SEM2 },
+          { sem: "3", data: window.PREGUNTAS_SEM3 },
+          { sem: "4", data: window.PREGUNTAS_SEM4 },
+          { sem: "5", data: window.PREGUNTAS_SEM5 },
+        ];
+        const all = [];
+        bancos.forEach((b) => {
+          if (!b.data) return;
+          Object.entries(b.data).forEach(([modulo, arr]) => {
+            if (!Array.isArray(arr)) return;
+            arr.forEach((preg) => {
+              // Solo preguntas tipo test (con opciones)
+              if (preg && preg.opciones) {
+                all.push({ sem: b.sem, modulo, preg });
+              }
+            });
+          });
+        });
+        return all;
+      }
+
+      function shuffle(array) {
+        const arr = array.slice();
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      function renderExamQuestion() {
+        if (!examState) return;
+        const total = examState.questions.length;
+        const idx = examState.index;
+
+        if (idx >= total) {
+          showExamSummary();
+          return;
+        }
+
+        const item = examState.questions[idx];
+        const preg = item.preg;
+
+        qArea.style.display = "block";
+        summaryBox.style.display = "none";
+
+        const imgHtml = preg.imagen
+          ? `<div class="question-image"><img src="img/${preg.imagen}" alt="Imagen de la pregunta" /></div>`
+          : "";
+
+        qArea.innerHTML = `
+          <p class="intro-text">Pregunta ${idx + 1} de ${total} · Semestre ${item.sem}</p>
+          <div class="question-card">
+            <div class="question-title">${preg.texto}</div>
+            ${imgHtml}
+            <div class="options">
+              ${preg.opciones.a ? `<label><input type="radio" name="exam-answer" value="a" /> a) ${preg.opciones.a}</label>` : ""}
+              ${preg.opciones.b ? `<label><input type="radio" name="exam-answer" value="b" /> b) ${preg.opciones.b}</label>` : ""}
+              ${preg.opciones.c ? `<label><input type="radio" name="exam-answer" value="c" /> c) ${preg.opciones.c}</label>` : ""}
+              ${preg.opciones.d ? `<label><input type="radio" name="exam-answer" value="d" /> d) ${preg.opciones.d}</label>` : ""}
+            </div>
+          </div>
+          <div class="exam-nav">
+            <button type="button" id="exam-next-btn" class="mode-btn exam-btn">Responder y siguiente</button>
+          </div>
+        `;
+
+        const nextBtn = document.getElementById("exam-next-btn");
+        if (nextBtn) {
+          nextBtn.addEventListener("click", () => {
+            const checked = qArea.querySelector("input[name='exam-answer']:checked");
+            if (!checked) {
+              alert("Selecciona una opción antes de continuar.");
+              return;
+            }
+            examState.answers.push({
+              id: preg.id,
+              texto: preg.texto,
+              correcta: preg.correcta,
+              marcada: checked.value,
+              sem: item.sem,
+              modulo: item.modulo,
+            });
+            examState.index += 1;
+            renderExamQuestion();
+          });
+        }
+      }
+
+      function loadScores() {
+        try {
+          const raw = localStorage.getItem(SCORE_KEY);
+          if (!raw) return {};
+          return JSON.parse(raw);
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveScores(data) {
+        try {
+          localStorage.setItem(SCORE_KEY, JSON.stringify(data));
+        } catch (e) {
+          console.warn("No se pudieron guardar los puntajes", e);
+        }
+      }
+
+      function showExamSummary() {
+        const total = examState.answers.length;
+        const correctas = examState.answers.filter((a) => a.marcada === a.correcta).length;
+        const puntaje = total ? Math.round((correctas * 100) / total) : 0;
+
+        const data = loadScores();
+        if (!data[examState.user]) data[examState.user] = [];
+        data[examState.user].push({
+          fecha: new Date().toISOString(),
+          correctas,
+          total,
+          puntaje,
+        });
+        saveScores(data);
+
+        const historial = data[examState.user]
+          .slice(-5)
+          .reverse();
+
+        qArea.style.display = "none";
+        summaryBox.style.display = "block";
+
+        let tabla = "";
+        if (historial.length) {
+          tabla = `
+            <h3>Historial reciente de ${examState.user}</h3>
+            <table class="score-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Correctas</th>
+                  <th>Total</th>
+                  <th>Puntaje</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${historial
+                  .map((h) => {
+                    const fecha = new Date(h.fecha);
+                    const nice = fecha.toLocaleString();
+                    return `<tr><td>${nice}</td><td>${h.correctas}</td><td>${h.total}</td><td>${h.puntaje}%</td></tr>`;
+                  })
+                  .join("")}
+              </tbody>
+            </table>
+          `;
+        }
+
+        summaryBox.innerHTML = `
+          <h3>Resultado del examen</h3>
+          <p>Usuario: <strong>${examState.user}</strong></p>
+          <p>Preguntas correctas: <strong>${correctas}</strong> de ${total} (${puntaje}%).</p>
+          <p>Las respuestas correctas para cada pregunta las puedes revisar usando el modo "Test completo" por semestre.</p>
+          ${tabla}
+        `;
+      }
+
+      openBtn.addEventListener("click", () => {
+        const allQuestions = getAllTestQuestions();
+        if (!allQuestions.length) {
+          alert("Aún no hay preguntas tipo test cargadas.");
+          return;
+        }
+        overlay.classList.remove("hidden");
+        startForm.style.display = "flex";
+        summaryBox.style.display = "none";
+        qArea.style.display = "none";
+        usernameInput.value = "";
+        usernameInput.focus();
+        examState = null;
+      });
+
+      startForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const user = (usernameInput.value || "").trim();
+        if (!user) {
+          alert("Escribe un nombre o usuario.");
+          return;
+        }
+        const allQuestions = getAllTestQuestions();
+        if (!allQuestions.length) {
+          alert("Aún no hay preguntas tipo test cargadas.");
+          return;
+        }
+        examState = {
+          user,
+          questions: shuffle(allQuestions),
+          index: 0,
+          answers: [],
+        };
+        startForm.style.display = "none";
+        renderExamQuestion();
+      });
+
+      closeBtn.addEventListener("click", () => {
+        overlay.classList.add("hidden");
+      });
+
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+          overlay.classList.add("hidden");
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
