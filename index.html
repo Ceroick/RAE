@@ -1193,6 +1193,16 @@
 
     let currentUser = null;
 
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+    }
+
+
     async function intentarLogin(usuario, password) {
       try {
         const resp = await fetch("usuarios.json");
@@ -1269,7 +1279,9 @@
         return;
       }
 
-      const preguntas = banco[key];
+      const preguntas = banco[key] ? [...banco[key]] : [];
+
+      shuffleArray(preguntas);
 
       preguntas.forEach((preg, index) => {
         const qDiv = document.createElement("div");
@@ -1277,7 +1289,8 @@
 
         // Preguntas tipo test (con opciones)
         if (preg.opciones) {
-          qDiv.dataset.correct = preg.correcta || "";
+          qDiv.dataset.correctKey = preg.correcta || "";
+          qDiv.dataset.correct = "";
           qDiv.dataset.explanation = preg.explicacion || "";
           qDiv.dataset.open = "false";
 
@@ -1291,10 +1304,27 @@
             </div>
             ${imgHtml}
             <div class="options">
-              ${preg.opciones.a ? `<label><input type="radio" name="${preg.id}" value="a" /> a) ${preg.opciones.a}</label>` : ""}
-              ${preg.opciones.b ? `<label><input type="radio" name="${preg.id}" value="b" /> b) ${preg.opciones.b}</label>` : ""}
-              ${preg.opciones.c ? `<label><input type="radio" name="${preg.id}" value="c" /> c) ${preg.opciones.c}</label>` : ""}
-              ${preg.opciones.d ? `<label><input type="radio" name="${preg.id}" value="d" /> d) ${preg.opciones.d}</label>` : ""}
+              ${(() => {
+                const originalCorrectKey = preg.correcta || "";
+                const entries = Object.entries(preg.opciones || {}).filter(([k, v]) => v && v.toString().trim() !== "");
+                const letters = ["a","b","c","d","e","f","g","h","i"];
+                const shuffled = [...entries];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                  const j = Math.floor(Math.random() * (i + 1));
+                  const temp = shuffled[i];
+                  shuffled[i] = shuffled[j];
+                  shuffled[j] = temp;
+                }
+                let html = "";
+                shuffled.forEach(([key, text], idx) => {
+                  const letter = letters[idx] || String.fromCharCode(97 + idx);
+                  if (key === originalCorrectKey) {
+                    qDiv.dataset.correct = letter;
+                  }
+                  html += `<label><input type="radio" name="${preg.id}" value="${letter}" /> ${letter}) ${text}</label>`;
+                });
+                return html;
+              })()}
             </div>
             <div class="feedback"></div>
           `;
