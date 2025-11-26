@@ -366,8 +366,8 @@ window.PREGUNTAS_SEM1 = {
       id: "bf17",
       texto: "Durante el ayuno prolongado, ¿cuál es la principal fuente de glucosa para el cerebro?",
       opciones: { a: "Glucógeno hepático", b: "Gluconeogénesis hepática", c: "Glucólisis muscular", d: "Cuerpos cetónicos" },
-      correcta: "d",
-      explicacion: "El cerebro usa cuerpos cetónicos en ayuno prolongado."
+      correcta: "b",
+      explicacion: "La gluconeogénesis hepática es la principal fuente de glucosa en ese caso, los cuerpos cetónicos no son fuente de glucosa."
     },
     {
       id: "bf18",
@@ -1128,6 +1128,7 @@ window.PREGUNTAS_SEM1 = {
     }
   ]
 };
+
 
 
 
