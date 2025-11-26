@@ -377,7 +377,7 @@ window.PREGUNTAS_SEM2 = {
     },
     {
       id: "aph14",
-      texto: "El manejo pre-hospitalario de este paciente debe incluir:",
+      texto: "Un paciente adulto sufre una quemadura por fuego en su cuerpo y el examinador refiere que tiene un compromiso de segundo grado en toda la región anterior del brazo derecho y el área genital, con un compromiso adicional de tercer grado en toda la superficie anterior del tórax, El manejo pre-hospitalario de este paciente debe incluir:",
       opciones: {
         a: "Drenar las ampollas para evitar la sobreinfección",
         b: "Retirar con una compresa o sábana todo el tejido necrótico",
@@ -963,6 +963,7 @@ window.PREGUNTAS_SEM2 = {
     }
   ]
 };
+
 
 
 
