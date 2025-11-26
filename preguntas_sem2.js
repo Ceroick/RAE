@@ -19,14 +19,14 @@ window.PREGUNTAS_SEM2 = {
         a: "Intervenir sobre los determinantes sociales de la salud",
         b: "Eliminar la estratificación social",
         c: "Aumentar la equidad en el acceso a servicios de salud",
-        d: "A y C son correctas"
+        d: "A y C son correctas (A: intervenir, C:Aumentar)"
       },
       correcta: "d",
       explicacion: "El modelo propone actuar sobre determinantes sociales y mejorar equidad en servicios."
     },
     {
       id: "sc2_3",
-      texto: "¿Según este modelo, ¿cuál de los siguientes factores contribuye más a las desigualdades en salud?",
+      texto: "¿Según este modelo (modelo de Diderichsen para reducir las desigualdades en salud?), ¿cuál de los siguientes factores contribuye más a las desigualdades en salud?",
       opciones: {
         a: "Inactividad física",
         b: "Acceso a medicamentos",
@@ -963,6 +963,7 @@ window.PREGUNTAS_SEM2 = {
     }
   ]
 };
+
 
 
 
